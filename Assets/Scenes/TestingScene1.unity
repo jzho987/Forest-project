@@ -591,6 +591,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: p1cam
       objectReference: {fileID: 0}
+    - target: {fileID: 8805515977548308047, guid: f9240f827ca3b174c85b6100b8d38694,
+        type: 3}
+      propertyPath: m_Name
+      value: p1UI
+      objectReference: {fileID: 0}
     - target: {fileID: 8805515977628666192, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: m_Name
@@ -650,6 +655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805515978086040412, guid: f9240f827ca3b174c85b6100b8d38694,
+        type: 3}
+      propertyPath: m_Name
+      value: bearCharacter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9240f827ca3b174c85b6100b8d38694, type: 3}
