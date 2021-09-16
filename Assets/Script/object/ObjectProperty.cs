@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectProperty : MonoBehaviour
+public abstract class ObjectProperty : MonoBehaviour
 {
     string ObjectType;
-    string ObjectName;
+    [SerializeField] string ObjectName;
 
+    public string getObjectType()
+    {
+        return ObjectType;
+    }
+    public string getObjectName()
+    {
+        return ObjectName;
+    }
 }
