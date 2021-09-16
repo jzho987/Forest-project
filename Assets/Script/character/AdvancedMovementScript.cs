@@ -16,6 +16,7 @@ public class AdvancedMovementScript : MonoBehaviour
     public Vector3 desiredVelocity;
 
     float pointerSpeedMultiplier = 5f;
+    float playerSpeed;
 
     [SerializeField] float GroundDistance;
     [SerializeField] LayerMask groundMask;
@@ -61,21 +62,22 @@ public class AdvancedMovementScript : MonoBehaviour
             sideways = headPointer.transform.right;
         }
 
-        Vector3 direction = forward + sideways;
+        desiredVelocity = forward + sideways;
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if(Input.GetKey(KeyCode.LeftControl))
         {
-            desiredVelocity = direction.normalized * RunningSpeed;
+            playerSpeed = RunningSpeed;
         }
         else
         {
-            desiredVelocity = direction.normalized * WalkingSpeed;
+            playerSpeed = WalkingSpeed;
         }
+
     }
 
     void moveCharacter()
     {
-        Vector3 velDiff = desiredVelocity - playerRigidBody.velocity;
+        Vector3 velDiff = desiredVelocity * playerSpeed - playerRigidBody.velocity;
         playerRigidBody.AddForce(velDiff, ForceMode.Acceleration);
     }
 
@@ -96,10 +98,9 @@ public class AdvancedMovementScript : MonoBehaviour
         if (Physics.Raycast(playerRigidBody.transform.position - new Vector3(0,0.3f,0), desiredVelocity.normalized * 1 + Vector3.down * 0.6f, out detectionHit, 1, groundMask)) {
             Debug.DrawLine(detectionHit.point, detectionHit.point + Vector3.up * 0.2f, Color.blue, 10);
         }
-        desiredVelocity = new Vector3(desiredVelocity.x, detectionHit.point.y - (playerRigidBody.transform.position.y - 0.5f), desiredVelocity.z);
+        desiredVelocity = new Vector3(desiredVelocity.x, detectionHit.point.y - (playerRigidBody.transform.position.y - 0.5f), desiredVelocity.z).normalized;
         DebugDirectionCast();
     }
-
 
     void DebugDirectionCast()
     {
