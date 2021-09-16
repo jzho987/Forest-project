@@ -6,6 +6,7 @@ using UnityEngine;
 public class AdvancedMovementScript : MonoBehaviour
 {
     public Rigidbody playerRigidBody;
+    public CapsuleCollider playerCapsuleCollider;
     public GameObject headPointer;
     public GameObject featPointer;
 
@@ -15,6 +16,9 @@ public class AdvancedMovementScript : MonoBehaviour
     public Vector3 desiredVelocity;
 
     float pointerSpeedMultiplier = 5f;
+
+    [SerializeField] float GroundDistance;
+    [SerializeField] LayerMask groundMask;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,7 @@ public class AdvancedMovementScript : MonoBehaviour
         setSpeed();
         moveCharacter();
         movePointer();
+        directionCast();
     }
 
     void setSpeed()
@@ -79,5 +84,16 @@ public class AdvancedMovementScript : MonoBehaviour
     {
         Vector3 velDiff = desiredVelocity - featPointer.transform.localPosition;
         featPointer.transform.Translate(velDiff * pointerSpeedMultiplier * Time.deltaTime);
+    }
+
+    void directionCast()
+    {
+        Vector3 direction = playerRigidBody.velocity.normalized;
+        Debug.DrawLine(playerRigidBody.transform.position, playerRigidBody.transform.position + direction * 3, Color.red, 0.2f);
+    }
+
+    bool isGrounded()
+    {
+        return Physics.CheckSphere(playerRigidBody.transform.position - Vector3.up * playerCapsuleCollider.height, playerCapsuleCollider.radius + GroundDistance, groundMask);
     }
 }
