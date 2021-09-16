@@ -26,18 +26,19 @@ public class characterController : MonoBehaviour
         if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance))
         {
             if (hit.collider.tag.Equals("interactable")) {
-                Interactable script = hit.collider.GetComponent<Interactable>();
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                Debug.Log(interactable.Interactions());
                 if (Input.GetMouseButtonDown(0))
                 {
-                    script.f1Interaction();
+                    interactable.f1Interaction(1);
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
-                    script.f2Interaction();
+                    interactable.f2Interaction();
                 }
                 else if(Input.GetKeyDown("e"))
                 {
-                    script.PickUpInteraction();
+                    interactable.PickUpInteraction();
                 }
             }
         }

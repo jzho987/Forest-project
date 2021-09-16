@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class ObjectProperty : MonoBehaviour
 {
+    public GameObject MainPointerObject;
     string ObjectType;
     [SerializeField] string ObjectName;
 
@@ -14,5 +15,10 @@ public abstract class ObjectProperty : MonoBehaviour
     public string getObjectName()
     {
         return ObjectName;
+    }
+
+    public virtual void Death()
+    {
+        Destroy(MainPointerObject);
     }
 }

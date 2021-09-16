@@ -4,58 +4,21 @@ using UnityEngine;
 
 public class TreeInteractable : Interactable
 {
-    public GameObject ParentObject;
-    public GameObject DropItem;
-    float harvestPoint;
-    [SerializeField]
+    TreeObjectProperty objProperty;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        harvestPoint = Property.getHP();
+        objProperty = objectPointer.GetComponent<TreeObjectProperty>();
     }
 
-    //attack the tree
-    public override void f1Interaction() {
-        if (--harvestPoint < 0) {
-            Harvest();
-        }
-    }
-    public void f1Interaction(float AttackPoint)
+    //harvest tree
+    public override void f1Interaction(int amount)
     {
-        harvestPoint -= AttackPoint;
-        if (harvestPoint < 0)
-        {
-            Harvest();
-        }
-    }
-
-    void Harvest()
-    {
-        Debug.Log("tree is harvested");
-        Instantiate(DropItem, transform.position, Quaternion.identity);
-        Destroy(ParentObject,0.2f);
+        objProperty.Harvest(amount);
     }
 
     public override void f2Interaction()
     {
-        Debug.Log("this is " + Property.getName());
-    }
-
-    static class Property
-    {
-        static string TreeName = "Oaklin tree";
-        static float HarvestPoints = 10;
-
-
-        public static float getHP() 
-        {
-            return HarvestPoints;
-        }
-
-        public static string getName()
-        {
-            return TreeName;
-        }
+        Debug.Log("this is " + objProperty.getObjectName());
     }
 }
