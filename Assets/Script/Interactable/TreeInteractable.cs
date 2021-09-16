@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TreeInteractable : Interactable
 {
+    public GameObject ParentObject;
+    public GameObject DropItem;
     float harvestPoint;
     [SerializeField]
 
@@ -31,6 +33,8 @@ public class TreeInteractable : Interactable
     void Harvest()
     {
         Debug.Log("tree is harvested");
+        Instantiate(DropItem, transform.position, Quaternion.identity);
+        Destroy(ParentObject,0.2f);
     }
 
     public override void f2Interaction()
@@ -42,6 +46,7 @@ public class TreeInteractable : Interactable
     {
         static string TreeName = "Oaklin tree";
         static float HarvestPoints = 10;
+
 
         public static float getHP() 
         {
