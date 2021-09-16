@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AdvancedMovementScript : MonoBehaviour
 {
     public Rigidbody playerRigidBody;
+    public GameObject headPointer;
+    public GameObject featPointer;
 
     public float WalkingSpeed;
     public float RunningSpeed;
 
-    Vector3 desiredVelocity;
-    [SerializeField]
+    public Vector3 desiredVelocity;
 
-
+    float pointerSpeedMultiplier = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class AdvancedMovementScript : MonoBehaviour
     {
         setSpeed();
         moveCharacter();
+        movePointer();
     }
 
     void setSpeed()
@@ -35,23 +38,23 @@ public class AdvancedMovementScript : MonoBehaviour
         if (Input.GetKey("w") && !Input.GetKey("s"))
         {
             //x axis +
-            forward = playerRigidBody.transform.forward;
+            forward = headPointer.transform.forward;
         }
         else if (!Input.GetKey("w") && Input.GetKey("s"))
         {
             //x axis -
-            forward = -playerRigidBody.transform.forward;
+            forward = -headPointer.transform.forward;
         }
 
         if (Input.GetKey("a") && !Input.GetKey("d"))
         {
             //z axis -
-            sideways = -playerRigidBody.transform.right;
+            sideways = -headPointer.transform.right;
         }
         else if (!Input.GetKey("a") && Input.GetKey("d"))
         {
             //x axis +
-            sideways = playerRigidBody.transform.right;
+            sideways = headPointer.transform.right;
         }
 
         Vector3 direction = forward + sideways;
@@ -70,5 +73,11 @@ public class AdvancedMovementScript : MonoBehaviour
     {
         Vector3 velDiff = desiredVelocity - playerRigidBody.velocity;
         playerRigidBody.AddForce(velDiff, ForceMode.Acceleration);
+    }
+
+    void movePointer()
+    {
+        Vector3 velDiff = desiredVelocity - featPointer.transform.localPosition;
+        featPointer.transform.Translate(velDiff * pointerSpeedMultiplier * Time.deltaTime);
     }
 }
