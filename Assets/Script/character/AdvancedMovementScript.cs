@@ -94,8 +94,6 @@ public class AdvancedMovementScript : MonoBehaviour
         RaycastHit detectionHit;
         Vector3 slopeVector = Vector3.up;
         if (Physics.Raycast(playerRigidBody.transform.position - new Vector3(0,0.3f,0), desiredVelocity.normalized * 1 + Vector3.down * 0.6f, out detectionHit, 1, groundMask)) {
-            Debug.Log(detectionHit.point + " hit location");
-            Debug.Log(playerRigidBody.transform.position + " player position");
             Debug.DrawLine(detectionHit.point, detectionHit.point + Vector3.up * 0.2f, Color.blue, 10);
         }
         desiredVelocity = new Vector3(desiredVelocity.x, detectionHit.point.y - (playerRigidBody.transform.position.y - 0.5f), desiredVelocity.z);
