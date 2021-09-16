@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 400
-  playerBody: {fileID: 8805515978086040384}
+  camAnchor: {fileID: 0}
 --- !u!1 &8805515977548308047
 GameObject:
   m_ObjectHideFlags: 0
