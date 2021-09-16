@@ -10,7 +10,7 @@ public class ItemInteratable : Interactable
         
     }
 
-    public void PickupInteraction() {
+    public override void PickUpInteraction() {
         Debug.Log("Player tried to pick up " + Property.getName());
     }
 

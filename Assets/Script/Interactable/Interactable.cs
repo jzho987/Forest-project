@@ -32,4 +32,6 @@ public class Interactable : MonoBehaviour
     {
         Debug.Log("player interacted with " + this.gameObject.name + " with hover");
     }
+
+    public virtual void PickUpInteraction() { }
 }
