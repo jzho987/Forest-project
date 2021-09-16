@@ -6,6 +6,7 @@ public class characterController : MonoBehaviour
 {
 
     public float interactionDistance;
+    public GameObject crossHairAnchor;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class characterController : MonoBehaviour
     void findInteractable() 
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, interactionDistance))
+        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance))
         {
             if (hit.collider.tag.Equals("interactable")) {
                 Interactable script = hit.collider.GetComponent<Interactable>();
@@ -33,6 +34,10 @@ public class characterController : MonoBehaviour
                 else if (Input.GetMouseButtonDown(1))
                 {
                     script.f2Interaction();
+                }
+                else if(Input.GetKeyDown("e"))
+                {
+                    script.PickUpInteraction();
                 }
             }
         }
