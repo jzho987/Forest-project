@@ -207,7 +207,7 @@ PrefabInstance:
     - target: {fileID: 8805515977628666192, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: m_Name
-      value: BearCharacter
+      value: BearCharacter Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8805515977628666199, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
@@ -329,6 +329,11 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8805515978086040390, guid: f9240f827ca3b174c85b6100b8d38694,
+        type: 3}
+      propertyPath: crossHairAnchor
+      value: 
+      objectReference: {fileID: 5665085994395523522}
     - target: {fileID: 8805515978086040412, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: m_Name
@@ -366,6 +371,12 @@ GameObject:
 --- !u!4 &1764361076755716243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3229453254770014430, guid: f9240f827ca3b174c85b6100b8d38694,
+    type: 3}
+  m_PrefabInstance: {fileID: 3795715980379250765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5665085994395523522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8805515977438214543, guid: f9240f827ca3b174c85b6100b8d38694,
     type: 3}
   m_PrefabInstance: {fileID: 3795715980379250765}
   m_PrefabAsset: {fileID: 0}
