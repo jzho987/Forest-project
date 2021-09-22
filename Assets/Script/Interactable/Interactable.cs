@@ -4,32 +4,27 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
+    [SerializeField] public GameObject objectPointer;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-            
-    }
-
-    public virtual void f1Interaction() 
+    public virtual void f1Interaction(characterController actionController) 
     {
         Debug.Log("player interacted with " + this.gameObject.name + " with fire1");
     }
 
-    public virtual void f2Interaction()
+    public virtual void f2Interaction(characterController actionController)
     {
         Debug.Log("player interacted with " + this.gameObject.name + " with fire2");
     }
 
-    public virtual void HoverInteraction()
+    public virtual void HoverInteraction(characterController actionController)
     {
         Debug.Log("player interacted with " + this.gameObject.name + " with hover");
     }
+
+    public virtual string[] Interactions(characterController actionController)
+    {
+        return null;
+    }
+
+    public virtual void PickUpInteraction() { }
 }
