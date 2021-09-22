@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class PlayerInventorySystem : inventorySystem
 {
+    //selection
     [SerializeField] RectTransform[] HotbarPositionTransform;
     [SerializeField] RectTransform selectionTransform;
+
+    //prefabs
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject CanvasPointer;
 
+    //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
     int hotBarEndIndex = 5;
-
     //selectedItem
     int selectionIndex;
-
     //the item being held by the mouse;
     GameObject MouseInventory;
+    //uiElement
+    GameObject InventoryUI;
 
     private void Start()
     {
@@ -64,11 +68,17 @@ public class PlayerInventorySystem : inventorySystem
     public void SwitchSelection(int newindex)
     {
         selectionIndex = newindex % hotBarEndIndex;
+        updateHotBarUI();
     }
 
     public void spawnUI()
     {
-        GameObject InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
+        InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
+    }
+
+    public void killUI()
+    {
+        Destroy(InventoryUI);
     }
 
     public void updateHotBarUI()

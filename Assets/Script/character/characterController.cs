@@ -72,7 +72,8 @@ public class characterController : MonoBehaviour
         {
             //open inventory
             switchState();
-            this.GetComponent<PlayerInventorySystem>().spawnUI();
+            Cursor.lockState = CursorLockMode.None;
+            playerInventorySystem.spawnUI();
         }
 
         if(Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -92,6 +93,8 @@ public class characterController : MonoBehaviour
         if (Input.GetKeyDown("e"))
         {
             switchState();
+            Cursor.lockState = CursorLockMode.Locked;
+            playerInventorySystem.killUI();
         }
     }
 
