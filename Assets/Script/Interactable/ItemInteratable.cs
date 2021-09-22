@@ -6,10 +6,6 @@ public class ItemInteratable : Interactable {
     public override void PickUpInteraction() {
         Debug.Log("Player tried to pick up " + Property.getName());
     }
-    public override string[] Interactions()
-    {
-        return new string[] {"[E] to pickup", "[F] to pay respect"};
-    }
 
     static class Property
     {

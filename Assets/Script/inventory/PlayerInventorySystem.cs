@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerInventorySystem : inventorySystem
 {
+    [SerializeField] GameObject uiPrefab;
+    [SerializeField] GameObject CanvasPointer;
+
     //the hotbar in the inventory takes up index: 0 to this number
     int hotBarEndIndex = 3;
 
@@ -57,5 +60,11 @@ public class PlayerInventorySystem : inventorySystem
     public void SwitchSelection(int newindex)
     {
         selectionIndex = newindex % hotBarEndIndex;
+    }
+
+    public void spawnUI()
+    {
+        GameObject InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
+        InventoryUI.
     }
 }

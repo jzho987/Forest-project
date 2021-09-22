@@ -176,6 +176,23 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &4313904989797240179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5665085993475056401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 295242af1ee44224899ac052e92c247d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList: []
+  inventoryName: player inventory
+  uiPrefab: {fileID: 2556030915398617579, guid: 16901cb9ac5daa746b08a273f61ff0ef,
+    type: 3}
+  CanvasPointer: {fileID: 5665085992936963586}
 --- !u!1 &5843028186193521952
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +628,12 @@ GameObject:
 --- !u!4 &8716585857609743545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5501884946509389044, guid: f9240f827ca3b174c85b6100b8d38694,
+    type: 3}
+  m_PrefabInstance: {fileID: 3795715980379250765}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5665085992936963586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8805515977548308047, guid: f9240f827ca3b174c85b6100b8d38694,
     type: 3}
   m_PrefabInstance: {fileID: 3795715980379250765}
   m_PrefabAsset: {fileID: 0}

@@ -12,12 +12,12 @@ public class TreeInteractable : Interactable
     }
 
     //harvest tree
-    public override void f1Interaction(int amount)
+    public override void f1Interaction(characterController actionController)
     {
-        objProperty.Harvest(amount);
+        objProperty.Harvest(actionController.getHarvestStrength());
     }
 
-    public override void f2Interaction()
+    public override void f2Interaction(characterController actionController)
     {
         Debug.Log("this is " + objProperty.getObjectName());
     }
