@@ -106,7 +106,7 @@ public class AdvancedMovementScript : MonoBehaviour
         }
         //normalize direction
         Vector3 sideAngle = Vector3.Cross(desiredDirection, Vector3.down);
-        desiredDirection = Vector3.Cross(sideAngle, slopeAngle);
+        desiredDirection = Vector3.Cross(sideAngle, slopeAngle).normalized;
     }
 
     void VerticalAction()

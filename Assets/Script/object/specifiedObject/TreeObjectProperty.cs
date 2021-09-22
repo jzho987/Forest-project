@@ -13,7 +13,6 @@ public class TreeObjectProperty : MaterialNodeObject
         if(DropHitPoint(DamadgeAmount))
         {
             //to be replaced with item's spawn function
-            
             Death();
         }
     }
