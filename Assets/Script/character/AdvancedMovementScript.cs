@@ -119,6 +119,7 @@ public class AdvancedMovementScript : MonoBehaviour
         {
             playerRigidBody.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
+
     }
 
     bool isGrounded()

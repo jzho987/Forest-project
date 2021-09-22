@@ -490,3 +490,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionDistance: 3
+  crossHairAnchor: {fileID: 0}
+  HarvestStrength: 0
