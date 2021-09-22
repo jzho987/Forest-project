@@ -5,20 +5,27 @@ using UnityEngine;
 
 public class AdvancedMovementScript : MonoBehaviour
 {
-    public Rigidbody playerRigidBody;
-    public CapsuleCollider playerCapsuleCollider;
-    public GameObject headPointer;
-    public GameObject featPointer;
+    //game objects
+    [SerializeField] GameObject CameraAnchor;
+    [SerializeField] Rigidbody playerRigidBody;
 
-    public float WalkingSpeed;
-    public float RunningSpeed;
+    //properties
+    [SerializeField] float WalkingSpeed = 3;
+    [SerializeField] float RunningSpeed = 6;
+    [SerializeField] float SneakingSpeed = 1.5f;
 
-    public Vector3 desiredVelocity;
+    [SerializeField] float walkAccelMultiplier = 0.5f;
+    [SerializeField] float runAccelMultiplier = 1;
+    [SerializeField] float sneakAccelMultiplier = 0.5f;
 
-    float pointerSpeedMultiplier = 5f;
-
-    [SerializeField] float GroundDistance;
-    [SerializeField] LayerMask groundMask;
+    //universal variables
+    /**state machine
+     * 0 = walking
+     * 1 = running
+     * 2 = sneaking
+     */
+    int state = 0;
+    Vector3 desiredDirection = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
@@ -29,65 +36,75 @@ public class AdvancedMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setSpeed();
-        ContactDetection();
-        moveCharacter();
+        //take input from player
+        //calculate acceleration direction
+        //taking into account airbourn state 
+        CalculateDirection();
+        switch (state) {
+            case 0:
+                //accelerate with walking speed and acceleration towards direction
+                MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
+                break;
+            case 1:
+                MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
+                //accelerate with running speed and acceleration towards direction
+                break;
+            case 2:
+                MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
+                //accelerate with sneaking speed and acceleration towards direction
+                break;
+        }
     }
 
-    void setSpeed()
+    /*
+     * update the desired direction to a normalized direction vector
+     */
+    void CalculateDirection()
     {
-        Vector3 forward = Vector3.zero;
-        Vector3 sideways = Vector3.zero;
-
+        //get user input
+        //get forward direction
         if (Input.GetKey("w") && !Input.GetKey("s"))
         {
             //x axis +
-            forward = headPointer.transform.forward;
+            desiredDirection = CameraAnchor.transform.forward;
         }
         else if (!Input.GetKey("w") && Input.GetKey("s"))
         {
             //x axis -
-            forward = -headPointer.transform.forward;
+            desiredDirection = -CameraAnchor.transform.forward;
         }
-
+        else
+        {
+            //no x axis
+            desiredDirection = Vector3.zero;
+        }
+        //get sideways direction
         if (Input.GetKey("a") && !Input.GetKey("d"))
         {
             //z axis -
-            sideways = -headPointer.transform.right;
+            desiredDirection += -CameraAnchor.transform.right;
         }
         else if (!Input.GetKey("a") && Input.GetKey("d"))
         {
             //x axis +
-            sideways = headPointer.transform.right;
+            desiredDirection += CameraAnchor.transform.right;
         }
-
-        Vector3 direction = forward + sideways;
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            desiredVelocity = direction.normalized * RunningSpeed;
-        }
-        else
-        {
-            desiredVelocity = direction.normalized * WalkingSpeed;
-        }
+        //normalize direction
+        desiredDirection = desiredDirection.normalized;
     }
 
-    void moveCharacter()
+    /**
+     * 
+     */
+    void MovePlayer(float speed, float accelMultiplier, Vector3 direction)
     {
-        Vector3 velDiff = desiredVelocity - playerRigidBody.velocity;
-        playerRigidBody.AddForce(velDiff, ForceMode.Acceleration);
-    }
-
-    void movePointer()
-    {
-        Vector3 velDiff = desiredVelocity - featPointer.transform.localPosition;
-        featPointer.transform.Translate(velDiff * pointerSpeedMultiplier * Time.deltaTime);
+        Vector3 MoveVelocity = direction*speed - playerRigidBody.velocity;
+        playerRigidBody.AddForce(MoveVelocity*accelMultiplier, ForceMode.Acceleration);
     }
 
     /**
      * detect ground/slope contact
-     */
+     *
     void ContactDetection()
     {
         //slope handling
@@ -99,18 +116,11 @@ public class AdvancedMovementScript : MonoBehaviour
             Debug.DrawLine(detectionHit.point, detectionHit.point + Vector3.up * 0.2f, Color.blue, 10);
         }
         desiredVelocity = new Vector3(desiredVelocity.x, detectionHit.point.y - (playerRigidBody.transform.position.y - 0.5f), desiredVelocity.z);
-        DebugDirectionCast();
-    }
-
-
-    void DebugDirectionCast()
-    {
-        Vector3 direction = playerRigidBody.velocity.normalized;
-        Debug.DrawLine(playerRigidBody.transform.position, playerRigidBody.transform.position + desiredVelocity, Color.red, 0.2f);
     }
 
     bool isGrounded()
     {
         return Physics.CheckSphere(playerRigidBody.transform.position - Vector3.up * playerCapsuleCollider.height, playerCapsuleCollider.radius + GroundDistance, groundMask);
     }
+    */
 }

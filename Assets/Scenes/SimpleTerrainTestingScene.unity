@@ -128,6 +128,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1180128242, guid: bb485ea0a30ab714a9cf86dccba7e059, type: 3}
+      propertyPath: CameraAnchor
+      value: 
+      objectReference: {fileID: 1741991002}
+    - target: {fileID: 1180128242, guid: bb485ea0a30ab714a9cf86dccba7e059, type: 3}
+      propertyPath: RunningSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180128242, guid: bb485ea0a30ab714a9cf86dccba7e059, type: 3}
+      propertyPath: WalkingSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5665085992824088858, guid: bb485ea0a30ab714a9cf86dccba7e059,
         type: 3}
       propertyPath: m_RootOrder
@@ -192,6 +204,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665085993475056399, guid: bb485ea0a30ab714a9cf86dccba7e059,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb485ea0a30ab714a9cf86dccba7e059, type: 3}
@@ -396,6 +413,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1741991002 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9186862555888761347, guid: bb485ea0a30ab714a9cf86dccba7e059,
+    type: 3}
+  m_PrefabInstance: {fileID: 11168573}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2069330879
 PrefabInstance:
   m_ObjectHideFlags: 0
