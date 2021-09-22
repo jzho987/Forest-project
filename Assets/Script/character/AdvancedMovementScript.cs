@@ -44,6 +44,7 @@ public class AdvancedMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(isGrounded());
         //take input from player
         //calculate acceleration direction
         //taking into account airbourn state 
