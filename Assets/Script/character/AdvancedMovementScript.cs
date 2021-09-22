@@ -19,7 +19,10 @@ public class AdvancedMovementScript : MonoBehaviour
     [SerializeField] float runAccelMultiplier = 1;
     [SerializeField] float sneakAccelMultiplier = 0.5f;
 
+    [SerializeField] float JumpMovementSpeed = 3;
+    [SerializeField] float JumpAccelMultiplier = 0.2f;
     [SerializeField] float JumpStrength = 1;
+    [SerializeField] float gravityMultiplier = 1;
 
     //universal variables
     /**state machine
@@ -45,18 +48,25 @@ public class AdvancedMovementScript : MonoBehaviour
         //calculate acceleration direction
         //taking into account airbourn state 
         CalculateDirection();
-        Jump();
-        if(Input.GetKey(KeyCode.LeftShift))
+        VerticalAction();
+        if (isGrounded())
         {
-            MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
-        }
-        else if(Input.GetKey(KeyCode.LeftControl))
-        {
-            MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
+            }
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
+            }
+            else
+            {
+                MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
+            }
         }
         else
         {
-             MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
+            MovePlayerFlat(JumpMovementSpeed, JumpAccelMultiplier, desiredDirection);
         }
     }
 
@@ -99,11 +109,15 @@ public class AdvancedMovementScript : MonoBehaviour
         desiredDirection = Vector3.Cross(sideAngle, slopeAngle);
     }
 
-    void Jump()
+    void VerticalAction()
     {
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
             playerRigidBody.AddForce(Vector3.up * JumpStrength, ForceMode.Acceleration);
+        }
+        else if(!isGrounded())
+        {
+            playerRigidBody.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
     }
 
@@ -130,11 +144,20 @@ public class AdvancedMovementScript : MonoBehaviour
     }
 
     /**
-     * 
+     * Move the player according to the desired direction
      */
     void MovePlayer(float speed, float accelMultiplier, Vector3 direction)
     {
         Vector3 MoveVelocity = direction*speed - playerRigidBody.velocity;
         playerRigidBody.AddForce(MoveVelocity*accelMultiplier, ForceMode.Acceleration);
+    }
+
+    /**
+     * Move the player according to the desired direction, excluding the yaxis
+     */
+    void MovePlayerFlat(float speed, float accelMultiplier, Vector3 direction)
+    {
+        Vector3 MoveVelocity = direction * speed - playerRigidBody.velocity;
+        playerRigidBody.AddForce(Vector3.Scale(MoveVelocity * accelMultiplier,new Vector3(1,0,1)), ForceMode.Acceleration);
     }
 }
