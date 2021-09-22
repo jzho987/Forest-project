@@ -40,19 +40,17 @@ public class AdvancedMovementScript : MonoBehaviour
         //calculate acceleration direction
         //taking into account airbourn state 
         CalculateDirection();
-        switch (state) {
-            case 0:
-                //accelerate with walking speed and acceleration towards direction
-                MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
-                break;
-            case 1:
-                MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
-                //accelerate with running speed and acceleration towards direction
-                break;
-            case 2:
-                MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
-                //accelerate with sneaking speed and acceleration towards direction
-                break;
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
+        }
+        else if(Input.GetKey(KeyCode.LeftControl))
+        {
+            MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
+        }
+        else
+        {
+             MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
         }
     }
 
@@ -101,6 +99,7 @@ public class AdvancedMovementScript : MonoBehaviour
         Vector3 MoveVelocity = direction*speed - playerRigidBody.velocity;
         playerRigidBody.AddForce(MoveVelocity*accelMultiplier, ForceMode.Acceleration);
     }
+
 
     /**
      * detect ground/slope contact
