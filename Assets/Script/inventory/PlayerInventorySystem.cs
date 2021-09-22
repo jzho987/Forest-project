@@ -65,6 +65,5 @@ public class PlayerInventorySystem : inventorySystem
     public void spawnUI()
     {
         GameObject InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
-        InventoryUI.
     }
 }
