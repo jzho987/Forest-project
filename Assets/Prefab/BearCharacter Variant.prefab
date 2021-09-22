@@ -93,12 +93,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraAnchor: {fileID: 9186862555888761347}
   playerRigidBody: {fileID: 5665085993475056399}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
   WalkingSpeed: 5
-  RunningSpeed: 6
-  SneakingSpeed: 1.5
-  walkAccelMultiplier: 0.5
-  runAccelMultiplier: 1
-  sneakAccelMultiplier: 0.5
+  RunningSpeed: 10
+  SneakingSpeed: 3
+  walkAccelMultiplier: 1
+  runAccelMultiplier: 0.8
+  sneakAccelMultiplier: 0.8
+  JumpMovementSpeed: 3
+  JumpAccelMultiplier: 0.4
+  JumpStrength: 230
+  gravityMultiplier: 2.7
+  groundDistance: 0.2
+  scanRadius: 0.29
 --- !u!1001 &3795715980379250765
 PrefabInstance:
   m_ObjectHideFlags: 0
