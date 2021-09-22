@@ -8,6 +8,7 @@ public class AdvancedMovementScript : MonoBehaviour
     //game objects
     [SerializeField] GameObject CameraAnchor;
     [SerializeField] Rigidbody playerRigidBody;
+    [SerializeField] LayerMask groundMask;
 
     //properties
     [SerializeField] float WalkingSpeed = 3;
@@ -59,6 +60,7 @@ public class AdvancedMovementScript : MonoBehaviour
      */
     void CalculateDirection()
     {
+        Vector3 slopeAngle = getSlopeAngle();
         //get user input
         //get forward direction
         if (Input.GetKey("w") && !Input.GetKey("s"))
@@ -88,7 +90,21 @@ public class AdvancedMovementScript : MonoBehaviour
             desiredDirection += CameraAnchor.transform.right;
         }
         //normalize direction
-        desiredDirection = desiredDirection.normalized;
+        Vector3 sideAngle = Vector3.Cross(desiredDirection, Vector3.down);
+        desiredDirection = Vector3.Cross(sideAngle, slopeAngle);
+    }
+
+    Vector3 getSlopeAngle()
+    {
+        //raycase downwards with a set distance
+        RaycastHit hit;
+        if (Physics.Raycast(playerRigidBody.transform.position,Vector3.down, out hit, 1, groundMask))
+        {
+            //return raycase normal if hit
+            return hit.normal;
+        }
+        //return up if not hit
+        return Vector3.up;
     }
 
     /**
