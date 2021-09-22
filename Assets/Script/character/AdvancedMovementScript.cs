@@ -10,7 +10,7 @@ public class AdvancedMovementScript : MonoBehaviour
     [SerializeField] Rigidbody playerRigidBody;
     [SerializeField] LayerMask groundMask;
 
-    //properties
+    //character properties
     [SerializeField] float WalkingSpeed = 3;
     [SerializeField] float RunningSpeed = 6;
     [SerializeField] float SneakingSpeed = 1.5f;
@@ -18,6 +18,8 @@ public class AdvancedMovementScript : MonoBehaviour
     [SerializeField] float walkAccelMultiplier = 0.5f;
     [SerializeField] float runAccelMultiplier = 1;
     [SerializeField] float sneakAccelMultiplier = 0.5f;
+
+    [SerializeField] float JumpStrength = 1;
 
     //universal variables
     /**state machine
@@ -27,6 +29,8 @@ public class AdvancedMovementScript : MonoBehaviour
      */
     int state = 0;
     Vector3 desiredDirection = Vector3.zero;
+    [SerializeField] float groundDistance = 1f;
+    [SerializeField] float scanRadius = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +45,7 @@ public class AdvancedMovementScript : MonoBehaviour
         //calculate acceleration direction
         //taking into account airbourn state 
         CalculateDirection();
+        Jump();
         if(Input.GetKey(KeyCode.LeftShift))
         {
             MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
@@ -94,16 +99,33 @@ public class AdvancedMovementScript : MonoBehaviour
         desiredDirection = Vector3.Cross(sideAngle, slopeAngle);
     }
 
+    void Jump()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        {
+            playerRigidBody.AddForce(Vector3.up * JumpStrength, ForceMode.Acceleration);
+        }
+    }
+
+    bool isGrounded()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(playerRigidBody.position - Vector3.up * groundDistance, scanRadius, groundMask);
+        return hitColliders.Length != 0;
+    }
+
     Vector3 getSlopeAngle()
     {
+        //return up if not grounded
+        if(!isGrounded())
+            return Vector3.up;
         //raycase downwards with a set distance
         RaycastHit hit;
-        if (Physics.Raycast(playerRigidBody.transform.position,Vector3.down, out hit, 1, groundMask))
+        if (Physics.Raycast(playerRigidBody.position,Vector3.down, out hit, 1, groundMask))
         {
             //return raycase normal if hit
             return hit.normal;
         }
-        //return up if not hit
+        //return up if no raycast hit
         return Vector3.up;
     }
 
@@ -115,27 +137,4 @@ public class AdvancedMovementScript : MonoBehaviour
         Vector3 MoveVelocity = direction*speed - playerRigidBody.velocity;
         playerRigidBody.AddForce(MoveVelocity*accelMultiplier, ForceMode.Acceleration);
     }
-
-
-    /**
-     * detect ground/slope contact
-     *
-    void ContactDetection()
-    {
-        //slope handling
-        RaycastHit detectionHit;
-        Vector3 slopeVector = Vector3.up;
-        if (Physics.Raycast(playerRigidBody.transform.position - new Vector3(0,0.3f,0), desiredVelocity.normalized * 1 + Vector3.down * 0.6f, out detectionHit, 1, groundMask)) {
-            Debug.Log(detectionHit.point + " hit location");
-            Debug.Log(playerRigidBody.transform.position + " player position");
-            Debug.DrawLine(detectionHit.point, detectionHit.point + Vector3.up * 0.2f, Color.blue, 10);
-        }
-        desiredVelocity = new Vector3(desiredVelocity.x, detectionHit.point.y - (playerRigidBody.transform.position.y - 0.5f), desiredVelocity.z);
-    }
-
-    bool isGrounded()
-    {
-        return Physics.CheckSphere(playerRigidBody.transform.position - Vector3.up * playerCapsuleCollider.height, playerCapsuleCollider.radius + GroundDistance, groundMask);
-    }
-    */
 }
