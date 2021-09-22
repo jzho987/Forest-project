@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerInventorySystem : inventorySystem
 {
+    [SerializeField] RectTransform[] HotbarPositionTransform;
+    [SerializeField] RectTransform selectionTransform;
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject CanvasPointer;
 
     //the hotbar in the inventory takes up index: 0 to this number
-    int hotBarEndIndex = 3;
+    int hotBarEndIndex = 5;
 
     //selectedItem
     int selectionIndex;
@@ -50,11 +52,13 @@ public class PlayerInventorySystem : inventorySystem
     public void incrementSelection()
     {
         selectionIndex = ++selectionIndex % hotBarEndIndex;
+        updateHotBarUI();
     }
 
     public void decrementSelection()
     {
-        selectionIndex = ++selectionIndex % hotBarEndIndex;
+        selectionIndex = (--selectionIndex + hotBarEndIndex) % hotBarEndIndex;
+        updateHotBarUI();
     }
 
     public void SwitchSelection(int newindex)
@@ -65,5 +69,10 @@ public class PlayerInventorySystem : inventorySystem
     public void spawnUI()
     {
         GameObject InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
+    }
+
+    public void updateHotBarUI()
+    {
+        selectionTransform.position = HotbarPositionTransform[selectionIndex].position;
     }
 }

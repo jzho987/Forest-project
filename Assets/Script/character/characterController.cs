@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class characterController : MonoBehaviour
 {
+    [SerializeField] PlayerInventorySystem playerInventorySystem;
     public float interactionDistance;
     public GameObject crossHairAnchor;
     [SerializeField] int HarvestStrength;
@@ -74,6 +75,14 @@ public class characterController : MonoBehaviour
             this.GetComponent<PlayerInventorySystem>().spawnUI();
         }
 
+        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            playerInventorySystem.incrementSelection();
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            playerInventorySystem.decrementSelection();
+        }
     }
 
     void inspectInput()
