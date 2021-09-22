@@ -27,7 +27,7 @@ MonoBehaviour:
   JumpAccelMultiplier: 0.4
   JumpStrength: 230
   gravityMultiplier: 2.7
-  groundDistance: 0.2
+  groundDistance: 0.3
   scanRadius: 0.29
 --- !u!1001 &3795715980379250765
 PrefabInstance:
@@ -239,7 +239,7 @@ PrefabInstance:
     - target: {fileID: 8805515978086040386, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8805515978086040386, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
