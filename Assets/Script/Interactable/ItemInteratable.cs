@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemInteratable : Interactable { 
-    public override void PickUpInteraction() {
-        Debug.Log("Player tried to pick up " + Property.getName());
+public class ItemInteratable : Interactable {
+    [SerializeField] item thisItem;
+
+    public override void f2Interaction(characterController actionController) {
+        actionController.getPlayerInventorySystem().PriorityIntroduce(thisItem, 1);
+        Destroy(objectPointer);
     }
 
-    static class Property
-    {
-        static string ItemName = "oak log";
 
-        public static string getName()
-        {
-            return ItemName;
-        }
-    }
 }

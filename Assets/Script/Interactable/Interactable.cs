@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] public GameObject objectPointer;
+    [SerializeField] protected GameObject objectPointer;
 
     public virtual void f1Interaction(characterController actionController) 
     {
@@ -25,6 +25,4 @@ public class Interactable : MonoBehaviour
     {
         return null;
     }
-
-    public virtual void PickUpInteraction() { }
 }

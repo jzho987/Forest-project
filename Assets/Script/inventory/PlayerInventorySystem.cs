@@ -27,7 +27,7 @@ public class PlayerInventorySystem : inventorySystem
         selectionIndex = 0;
     }
 
-    protected bool PriorityIntroduce(item newItem, int i)
+    public bool PriorityIntroduce(item newItem, int i)
     {
         //prioritise selected hotbar location
         if(base.getInventory(selectionIndex) == null)

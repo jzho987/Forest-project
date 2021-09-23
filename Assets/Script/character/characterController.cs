@@ -52,10 +52,6 @@ public class characterController : MonoBehaviour
                 {
                     interactable.f2Interaction(this);
                 }
-                else if (Input.GetKeyDown("e"))
-                {
-                    interactable.PickUpInteraction();
-                }
             }
         }
 
@@ -110,5 +106,10 @@ public class characterController : MonoBehaviour
     public int getHarvestStrength()
     {
         return HarvestStrength;
+    }
+
+    public PlayerInventorySystem getPlayerInventorySystem()
+    {
+        return this.playerInventorySystem;
     }
 }
