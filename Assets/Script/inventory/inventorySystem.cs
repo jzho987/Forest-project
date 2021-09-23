@@ -5,13 +5,11 @@ using UnityEngine;
 public class inventorySystem : MonoBehaviour
 {
     [SerializeField] List<item> itemList = new List<item>();
-
-    int inventorySize;
+    [SerializeField] int inventorySize;
     [SerializeField] string inventoryName;
 
     private void Start()
     {
-        inventorySize = itemList.Count;
     }
 
     public int getSize()

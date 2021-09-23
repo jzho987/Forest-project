@@ -367,7 +367,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295242af1ee44224899ac052e92c247d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemList: []
+  itemList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   inventoryName: player inventory
   HotbarPositionTransform:
   - {fileID: 8888609625905847584}
@@ -379,6 +399,7 @@ MonoBehaviour:
   uiPrefab: {fileID: 2556030915398617579, guid: 16901cb9ac5daa746b08a273f61ff0ef,
     type: 3}
   CanvasPointer: {fileID: 5665085992936963586}
+  HotBarUI: {fileID: 0}
 --- !u!1 &5542339358303019227
 GameObject:
   m_ObjectHideFlags: 0

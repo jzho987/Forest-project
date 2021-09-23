@@ -11,10 +11,11 @@ public class PlayerInventorySystem : inventorySystem
     //prefabs
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject CanvasPointer;
+    [SerializeField] GameObject HotBarUI;
 
     //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
-    int hotBarEndIndex = 5;
+    int hotBarEndIndex = 4;
     //selectedItem
     int selectionIndex;
     //the item being held by the mouse;
@@ -29,21 +30,24 @@ public class PlayerInventorySystem : inventorySystem
 
     public bool PriorityIntroduce(item newItem, int i)
     {
+        Debug.Log(selectionIndex);
         //prioritise selected hotbar location
-        if(base.getInventory(selectionIndex) == null)
+        if (getInventory(selectionIndex) == null)
         {
-            base.introduce(newItem, selectionIndex);
+            introduce(newItem, selectionIndex);
+            updateHotBarUI();
             return true;
         }
         //if hotbar location full, prioritise based on index
         else
         {
-            int max = base.getSize();
+            int max = getSize();
             for (int j = 0; j <= max; j++)
             {
-                if (base.getInventory(j) == null)
+                if (getInventory(j) == null)
                 {
-                    base.introduce(newItem, j);
+                    introduce(newItem, j);
+                    updateHotBarUI();
                     return true;
                 }
             }
@@ -55,20 +59,20 @@ public class PlayerInventorySystem : inventorySystem
 
     public void incrementSelection()
     {
-        selectionIndex = ++selectionIndex % hotBarEndIndex;
-        updateHotBarUI();
+        selectionIndex = ++selectionIndex % (hotBarEndIndex + 1);
+        updateHotBarSelection();
     }
 
     public void decrementSelection()
     {
-        selectionIndex = (--selectionIndex + hotBarEndIndex) % hotBarEndIndex;
-        updateHotBarUI();
+        selectionIndex = (--selectionIndex + hotBarEndIndex + 1) % (hotBarEndIndex + 1);
+        updateHotBarSelection();
     }
 
     public void SwitchSelection(int newindex)
     {
-        selectionIndex = newindex % hotBarEndIndex;
-        updateHotBarUI();
+        selectionIndex = newindex % (hotBarEndIndex + 1);
+        updateHotBarSelection();
     }
 
     public void spawnUI()
@@ -81,8 +85,20 @@ public class PlayerInventorySystem : inventorySystem
         Destroy(InventoryUI);
     }
 
-    public void updateHotBarUI()
+    public void updateHotBarSelection()
     {
         selectionTransform.position = HotbarPositionTransform[selectionIndex].position;
+    }
+
+    public void updateHotBarUI()
+    {
+        //get item list
+        item[] hotbarArray = new item[hotBarEndIndex + 1];
+        for(int i = 0; i <= hotBarEndIndex; i++)
+        {
+            hotbarArray[i] = getInventory(i);
+        }
+        //update ui
+        HotBarUI.GetComponent<UIscript>().UpdateUI(hotbarArray);
     }
 }

@@ -14,4 +14,10 @@ public class item : ScriptableObject
 
     //inventory item
     [SerializeField] Sprite itemSprite;
+
+    //getters
+    public Sprite getItemSprite()
+    {
+        return itemSprite;
+    }
 }
