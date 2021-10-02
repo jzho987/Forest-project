@@ -46,7 +46,6 @@ public class characterController : MonoBehaviour
         if(currState == worldState.active)
         {
             ActiveInput();
-            movementInput();
         }
         else if(currState == worldState.inspection)
         {
@@ -59,46 +58,40 @@ public class characterController : MonoBehaviour
         playerMovementSystem.InputDirection(Input.GetKey("w"), Input.GetKey("s"), Input.GetKey("a"), Input.GetKey("d"));
     }
 
-    void ActiveInput() 
-    { 
-        //raycast interaction
-        RaycastHit hit;
-        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance))
+    void InteractionInput(Interactable interactableObjectHit)
+    {
+        //left click action can be help down since there is use cool down
+        if (Input.GetMouseButton(0))
         {
-            if (hit.collider.tag.Equals("interactable"))
+            //only swing when cool down is clear
+            if (swingCoolDown == 0)
             {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                //left click action can be help down since there is use cool down
-                if (Input.GetMouseButton(0))
-                {
-                    //only swing when cool down is clear
-                    if (swingCoolDown == 0)
-                    {
-                        interactable.f1Interaction(this);
-                        swingCoolDown = swingCoolDownTime;
-                        //call to display the swing animation
-                    }
-                    else
-                    {
+                interactableObjectHit.f1Interaction(this);
+                swingCoolDown = swingCoolDownTime;
+                //call to display the swing animation
+            }
+            else
+            {
 
-                    }
-                }
-                //right click action only have tap right now.
-                else if (Input.GetMouseButtonDown(1))
-                {
-                    interactable.f2Interaction(this);
-                }
             }
         }
+        //right click action only have tap right now.
+        else if (Input.GetMouseButtonDown(1))
+        {
+            interactableObjectHit.f2Interaction(this);
+        }
+    }
 
+    void defaultInput()
+    {
         //default actions
         if (Input.GetMouseButtonDown(0))
         {
-            
+
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            
+
         }
         else if (Input.GetKeyDown("e"))
         {
@@ -108,7 +101,7 @@ public class characterController : MonoBehaviour
             playerInventorySystem.spawnUI();
         }
 
-        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             playerInventorySystem.incrementSelection();
         }
@@ -116,6 +109,22 @@ public class characterController : MonoBehaviour
         {
             playerInventorySystem.decrementSelection();
         }
+    }
+
+    void ActiveInput() 
+    { 
+        //raycast interaction
+        RaycastHit hit;
+        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance))
+        {
+            if (hit.collider.tag.Equals("interactable"))
+            {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                InteractionInput(interactable);
+            }
+        }
+        defaultInput();
+        movementInput();
     }
 
     void inspectInput()
