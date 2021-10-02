@@ -69,47 +69,6 @@ public class AdvancedMovementScript : MonoBehaviour
         }
     }
 
-    /*
-     * update the desired direction to a normalized direction vector
-     */
-    void CalculateDirection()
-    {
-        Vector3 slopeAngle = getSlopeAngle();
-        //get user input
-        //get forward direction
-        if (Input.GetKey("w") && !Input.GetKey("s"))
-        {
-            //x axis +
-            desiredDirection = CameraAnchor.transform.forward;
-        }
-        else if (!Input.GetKey("w") && Input.GetKey("s"))
-        {
-            //x axis -
-            desiredDirection = -CameraAnchor.transform.forward;
-        }
-        else
-        {
-            //no x axis
-            desiredDirection = Vector3.zero;
-        }
-
-        //get sideways direction
-        if (Input.GetKey("a") && !Input.GetKey("d"))
-        {
-            //z axis -
-            desiredDirection += -CameraAnchor.transform.right;
-        }
-        else if (!Input.GetKey("a") && Input.GetKey("d"))
-        {
-            //x axis +
-            desiredDirection += CameraAnchor.transform.right;
-        }
-
-        //normalize direction
-        Vector3 sideAngle = Vector3.Cross(desiredDirection, Vector3.down);
-        desiredDirection = Vector3.Cross(sideAngle, slopeAngle).normalized;
-    }
-
     void VerticalAction()
     {
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded())

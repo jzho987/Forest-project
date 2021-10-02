@@ -12,6 +12,18 @@ public class characterController : MonoBehaviour
     [SerializeField] int HarvestStrength;
 
     //keybinding used for input tracking
+    [SerializeField] string movementForward;
+    [SerializeField] string movementBackward;
+    [SerializeField] string movementleft;
+    [SerializeField] string movementright;
+
+    [SerializeField] string jump;
+    [SerializeField] string sneak;
+    [SerializeField] string sprint;
+
+    //use this for player property
+    [SerializeField] float swingCoolDownTime;
+    float swingCoolDown;
 
     worldState currState;
     enum worldState
@@ -23,12 +35,14 @@ public class characterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        swingCoolDown = 0f;
         currState = worldState.active;
     }
 
     // Update is called once per frame
     void Update()
     {
+        SwingCoolDown();
         if(currState == worldState.active)
         {
             ActiveInput();
@@ -56,7 +70,15 @@ public class characterController : MonoBehaviour
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
                 if (Input.GetMouseButtonDown(0))
                 {
-                    interactable.f1Interaction(this);
+                    if (swingCoolDown == 0)
+                    {
+                        interactable.f1Interaction(this);
+                        swingCoolDown = swingCoolDownTime;
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
@@ -111,6 +133,11 @@ public class characterController : MonoBehaviour
             currState = worldState.inspection;
         else
             currState = worldState.active;
+    }
+
+    void SwingCoolDown()
+    {
+        swingCoolDown = !(swingCoolDown <= 0) ? swingCoolDown - Time.deltaTime : 0;
     }
 
     public int getHarvestStrength()
