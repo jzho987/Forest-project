@@ -8,6 +8,7 @@ public class item : ScriptableObject
     //overview
     [SerializeField] string itemName;
     [SerializeField] string itemDescription;
+    [SerializeField] int maxStack;
 
     //world item
     [SerializeField] GameObject WorldItem;
@@ -19,5 +20,10 @@ public class item : ScriptableObject
     public Sprite getItemSprite()
     {
         return itemSprite;
+    }
+
+    public int getMaxStack()
+    {
+        return maxStack;
     }
 }

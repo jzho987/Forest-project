@@ -19,7 +19,7 @@ public class TreeObjectProperty : MaterialNodeObject
 
     public override void Death()
     {
-        Instantiate(Drop(), MainPointerObject.transform.position + Vector3.up * 1f, Quaternion.identity);
+        Instantiate(Drop(), MainPointerObject.transform.position + Vector3.up * 1.3f, Quaternion.Euler(90,0,0));
         Instantiate(TreeStump, MainPointerObject.transform.position,MainPointerObject.transform.rotation);
         Destroy(MainPointerObject);
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ObjectProperty))]
 public class Interactable : MonoBehaviour
 {
     [SerializeField] protected GameObject objectPointer;
