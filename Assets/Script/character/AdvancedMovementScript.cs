@@ -47,7 +47,6 @@ public class AdvancedMovementScript : MonoBehaviour
         //take input from player
         //calculate acceleration direction
         //taking into account airbourn state 
-        CalculateDirection();
         VerticalAction();
         if (isGrounded())
         {
@@ -93,6 +92,7 @@ public class AdvancedMovementScript : MonoBehaviour
             //no x axis
             desiredDirection = Vector3.zero;
         }
+
         //get sideways direction
         if (Input.GetKey("a") && !Input.GetKey("d"))
         {
@@ -104,6 +104,7 @@ public class AdvancedMovementScript : MonoBehaviour
             //x axis +
             desiredDirection += CameraAnchor.transform.right;
         }
+
         //normalize direction
         Vector3 sideAngle = Vector3.Cross(desiredDirection, Vector3.down);
         desiredDirection = Vector3.Cross(sideAngle, slopeAngle).normalized;
@@ -120,6 +121,42 @@ public class AdvancedMovementScript : MonoBehaviour
             playerRigidBody.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
 
+    }
+
+    public void InputDirection(bool forward, bool backward, bool left, bool right)
+    {
+        Vector3 slopeAngle = getSlopeAngle();
+        if (forward && !backward)
+        {
+            //x axis +
+            desiredDirection = CameraAnchor.transform.forward;
+        }
+        else if (!forward && backward)
+        {
+            //x axis -
+            desiredDirection = -CameraAnchor.transform.forward;
+        }
+        else
+        {
+            //no x axis
+            desiredDirection = Vector3.zero;
+        }
+
+        //get sideways direction
+        if (left && !right)
+        {
+            //z axis -
+            desiredDirection += -CameraAnchor.transform.right;
+        }
+        else if (!left && right)
+        {
+            //x axis +
+            desiredDirection += CameraAnchor.transform.right;
+        }
+
+        //normalize direction
+        Vector3 sideAngle = Vector3.Cross(desiredDirection, Vector3.down);
+        desiredDirection = Vector3.Cross(sideAngle, slopeAngle).normalized;
     }
 
     bool isGrounded()

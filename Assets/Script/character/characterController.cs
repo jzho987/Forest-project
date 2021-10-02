@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AdvancedMovementScript))]
 public class characterController : MonoBehaviour
 {
     [SerializeField] PlayerInventorySystem playerInventorySystem;
+    [SerializeField] AdvancedMovementScript playerMovementSystem;
     public float interactionDistance;
     public GameObject crossHairAnchor;
     [SerializeField] int HarvestStrength;
+
+    //keybinding used for input tracking
 
     worldState currState;
     enum worldState
@@ -28,11 +32,17 @@ public class characterController : MonoBehaviour
         if(currState == worldState.active)
         {
             ActiveInput();
+            movementInput();
         }
         else if(currState == worldState.inspection)
         {
             inspectInput();
         }
+    }
+
+    void movementInput()
+    {
+        playerMovementSystem.InputDirection(Input.GetKey("w"), Input.GetKey("s"), Input.GetKey("a"), Input.GetKey("d"));
     }
 
     void ActiveInput() 

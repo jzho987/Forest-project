@@ -388,6 +388,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  inventorySize: 0
   inventoryName: player inventory
   HotbarPositionTransform:
   - {fileID: 8888609625905847584}
@@ -1002,6 +1003,11 @@ PrefabInstance:
       propertyPath: crossHairAnchor
       value: 
       objectReference: {fileID: 5665085994395523522}
+    - target: {fileID: 8805515978086040390, guid: f9240f827ca3b174c85b6100b8d38694,
+        type: 3}
+      propertyPath: playerMovementSystem
+      value: 
+      objectReference: {fileID: 1180128242}
     - target: {fileID: 8805515978086040390, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: playerInventorySystem
