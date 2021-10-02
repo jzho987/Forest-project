@@ -28,7 +28,7 @@ public class PlayerInventorySystem : inventorySystem
         selectionIndex = 0;
     }
 
-    public bool PriorityIntroduce(item newItem, int i)
+    public bool PriorityIntroduce(itemStack newItem, int i)
     {
         Debug.Log(selectionIndex);
         //prioritise selected hotbar location
@@ -93,7 +93,7 @@ public class PlayerInventorySystem : inventorySystem
     public void updateHotBarUI()
     {
         //get item list
-        item[] hotbarArray = new item[hotBarEndIndex + 1];
+        itemStack[] hotbarArray = new itemStack[hotBarEndIndex + 1];
         for(int i = 0; i <= hotBarEndIndex; i++)
         {
             hotbarArray[i] = getInventory(i);

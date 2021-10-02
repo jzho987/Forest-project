@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class inventorySystem : MonoBehaviour
 {
-    [SerializeField] List<item> itemList = new List<item>();
+    [SerializeField] List<itemStack> itemList = new List<itemStack>();
     [SerializeField] int inventorySize;
     [SerializeField] string inventoryName;
 
@@ -17,12 +17,12 @@ public class inventorySystem : MonoBehaviour
         return inventorySize;
     }
 
-    public List<item> getInvetory()
+    public List<itemStack> getInvetory()
     {
         return itemList;
     }
 
-    public item getInventory(int i)
+    public itemStack getInventory(int i)
     {
         if (i > inventorySize)
         {
@@ -34,7 +34,7 @@ public class inventorySystem : MonoBehaviour
         }
     }
 
-    protected void introduce(item newItem, int i)
+    protected void introduce(itemStack newItem, int i)
     {
         itemList[i] = newItem;
     }

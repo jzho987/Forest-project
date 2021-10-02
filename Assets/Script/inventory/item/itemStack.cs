@@ -2,10 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class itemStack : MonoBehaviour
+[CreateAssetMenu(fileName = "new item", menuName = "itemStack")]
+public class itemStack : ScriptableObject
 {
-    item Item;
-    int count;
+    [SerializeField] item Item;
+    [SerializeField] int count;
+
+    public itemStack(item Item, int count)
+    {
+        this.Item = Item;
+        this.count = count;
+    }
+
+    public itemStack(item Item)
+    {
+        this.Item = Item;
+        count = 1;
+    }
 
     public item getItem()
     {

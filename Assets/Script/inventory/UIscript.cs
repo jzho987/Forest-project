@@ -6,7 +6,7 @@ public class UIscript : MonoBehaviour
 {
     [SerializeField] GameObject[] SlotUIList;
 
-    public void UpdateUI(item[] slotItems)
+    public void UpdateUI(itemStack[] slotItems)
     {
         int size = SlotUIList.Length;
         for(int i = 0; i < size; i++)
@@ -14,7 +14,7 @@ public class UIscript : MonoBehaviour
             if (!(slotItems[i] == null))
             {
                 Debug.Log("update " + i);
-                SlotUIList[i].GetComponent<inventorySlot>().updateImage(slotItems[i].getItemSprite());
+                SlotUIList[i].GetComponent<inventorySlot>().updateImage(slotItems[i].getItem().getItemSprite());
             }
         }
     }
