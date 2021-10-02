@@ -68,18 +68,22 @@ public class characterController : MonoBehaviour
             if (hit.collider.tag.Equals("interactable"))
             {
                 Interactable interactable = hit.collider.GetComponent<Interactable>();
-                if (Input.GetMouseButtonDown(0))
+                //left click action can be help down since there is use cool down
+                if (Input.GetMouseButton(0))
                 {
+                    //only swing when cool down is clear
                     if (swingCoolDown == 0)
                     {
                         interactable.f1Interaction(this);
                         swingCoolDown = swingCoolDownTime;
+                        //call to display the swing animation
                     }
                     else
                     {
 
                     }
                 }
+                //right click action only have tap right now.
                 else if (Input.GetMouseButtonDown(1))
                 {
                     interactable.f2Interaction(this);
