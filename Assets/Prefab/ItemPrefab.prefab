@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPointer: {fileID: 4714539632843304820}
-  thisItem: {fileID: 11400000, guid: e9d3d40da91720946a80f342baa9a356, type: 2}
+  thisItem: {fileID: 11400000, guid: 7e077e1379e7ad046a709bf798590702, type: 2}
 --- !u!65 &5515728116411446517
 BoxCollider:
   m_ObjectHideFlags: 0
