@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: oak_log_stack
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: e9d3d40da91720946a80f342baa9a356, type: 2}
-  count: 3
+  count: 12

@@ -14,7 +14,7 @@ public class UIscript : MonoBehaviour
             if (!(slotItems[i] == null))
             {
                 Debug.Log("update " + i);
-                SlotUIList[i].GetComponent<inventorySlot>().updateImage(slotItems[i].getItem().getItemSprite());
+                SlotUIList[i].GetComponent<inventorySlot>().updateDisplay(slotItems[i].getItem().getItemSprite(), slotItems[i].getCount());
             }
         }
     }

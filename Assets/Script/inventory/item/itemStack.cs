@@ -25,6 +25,11 @@ public class itemStack : ScriptableObject
         return Item;
     }
 
+    public int getCount()
+    {
+        return count;
+    }
+
     public bool incrementCount()
     {
         if(++count > Item.getMaxStack())
@@ -43,5 +48,33 @@ public class itemStack : ScriptableObject
             return false;
         }
         return true;
+    }
+
+    public void setCount(int newCount)
+    {
+        count = newCount;
+
+    }
+
+    public int MergeStack(int count)
+    {
+        int max = this.Item.getMaxStack();
+        if(count + this.count <= max)
+        {
+            this.count += count;
+            //returns -1 if there are no leftover
+            return -1;
+        }
+        else
+        {
+            this.count = max;
+            //return leftover amount if there are leftover
+            return (count + this.count) - max;
+        }
+    }
+
+    public bool isFull()
+    {
+        return this.count == Item.getMaxStack();
     }
 }

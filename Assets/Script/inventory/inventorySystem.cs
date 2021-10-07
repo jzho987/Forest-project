@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class inventorySystem : MonoBehaviour
 {
-    [SerializeField] List<itemStack> itemList = new List<itemStack>();
+    [SerializeField] protected List<itemStack> itemList = new List<itemStack>();
     [SerializeField] int inventorySize;
     [SerializeField] string inventoryName;
 
@@ -34,9 +34,14 @@ public class inventorySystem : MonoBehaviour
         }
     }
 
-    protected void introduce(itemStack newItem, int i)
+    protected void introduce(itemStack newItemStack, int i)
     {
-        itemList[i] = newItem;
+        itemList[i] = newItemStack;
+    }
+
+    protected int merge(itemStack newItemStack, int i)
+    {
+        return itemList[i].MergeStack(newItemStack.getCount());
     }
 
     void remove(int i)

@@ -26,4 +26,11 @@ public class item : ScriptableObject
     {
         return maxStack;
     }
+
+    //temporary equals method to be used for testing purposes
+    public override bool Equals(object other)
+    {
+        item Item = (item)other;
+        return Item.itemName == this.itemName;
+    }
 }
