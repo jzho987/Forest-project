@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: flint axe
   itemDescription: axe made of flint
+  maxStack: 0
   WorldItem: {fileID: 4714539632843304820, guid: 594ef02600303e6448c7e187beb60370,
     type: 3}
-  itemSprite: {fileID: 21300000, guid: ef39dba1711ca9c43aadbd56f1a2010b, type: 3}
+  itemSprite: {fileID: 21300000, guid: 7a930e1144da6934f882680f84859b75, type: 3}
