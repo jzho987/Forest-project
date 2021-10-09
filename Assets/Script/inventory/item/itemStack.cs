@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new item", menuName = "itemStack")]
-public class itemStack : ScriptableObject
+public class itemStack
 {
     [SerializeField] item Item;
     [SerializeField] int count;
@@ -67,9 +66,10 @@ public class itemStack : ScriptableObject
         }
         else
         {
+            int leftOver = (count + this.count) - max;
             this.count = max;
             //return leftover amount if there are leftover
-            return (count + this.count) - max;
+            return leftOver;
         }
     }
 

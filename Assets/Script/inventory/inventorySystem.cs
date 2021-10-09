@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class inventorySystem : MonoBehaviour
 {
-    [SerializeField] protected List<itemStack> itemList = new List<itemStack>();
+    public List<itemStack> itemList = new List<itemStack>();
     [SerializeField] int inventorySize;
     [SerializeField] string inventoryName;
-
-    private void Start()
-    {
-    }
 
     public int getSize()
     {
@@ -24,6 +20,14 @@ public class inventorySystem : MonoBehaviour
 
     public itemStack getInventory(int i)
     {
+        if(itemList.Count == 0)
+        {
+            for (int j = 0; j < inventorySize; j++)
+            {
+                itemList.Add(null);
+            }
+        }
+
         if (i > inventorySize)
         {
             return null;

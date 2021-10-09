@@ -6,11 +6,11 @@ public class MaterialNodeObject : ObjectProperty
 {
     string ObjectType = "MaterialNode";
     [SerializeField] protected int HitPoint;
-    [SerializeField] GameObject[] ItemDrop;
+    [SerializeField] item[] ItemDrop;
 
     public virtual void Harvest() { }
 
-    public GameObject Drop()
+    public item Drop()
     {
         return ItemDrop[0];
     }

@@ -31,6 +31,7 @@ public class PlayerInventorySystem : inventorySystem
     public bool IntroduceToInventory(itemStack newItem)
     {
         int leftOver = PriorityAdd(newItem, 0);
+        updateHotBarUI();
         if (leftOver == -1)
         {
             return true;
@@ -61,8 +62,7 @@ public class PlayerInventorySystem : inventorySystem
             //keep iterating if leftover
             else
             {
-                newItem.setCount(leftOver);
-                return PriorityAdd(newItem, newLocation + 1);
+                return PriorityAdd(new itemStack(newItem.getItem(), leftOver), newLocation + 1);
             }
         }
     }

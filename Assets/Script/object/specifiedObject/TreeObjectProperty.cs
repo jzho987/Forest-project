@@ -19,7 +19,8 @@ public class TreeObjectProperty : MaterialNodeObject
 
     public override void Death()
     {
-        Instantiate(Drop(), MainPointerObject.transform.position + Vector3.up * 1.3f, Quaternion.Euler(90,0,0));
+        GameObject drop = Instantiate(Drop().WorldItem, MainPointerObject.transform.position + Vector3.up * 1.3f, Quaternion.Euler(90,0,0));
+        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(Drop(),8));
         Instantiate(TreeStump, MainPointerObject.transform.position,MainPointerObject.transform.rotation);
         Destroy(MainPointerObject);
     }

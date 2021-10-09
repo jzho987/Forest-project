@@ -11,7 +11,7 @@ public class item : ScriptableObject
     [SerializeField] int maxStack;
 
     //world item
-    [SerializeField] GameObject WorldItem;
+    [SerializeField] public GameObject WorldItem;
 
     //inventory item
     [SerializeField] Sprite itemSprite;
