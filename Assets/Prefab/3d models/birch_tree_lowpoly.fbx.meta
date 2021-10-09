@@ -3,7 +3,37 @@ guid: 39386a483447fbc458c00a41fb1d0e19
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 2faf3326139291c45a2bb5f2d0a14405, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: e273ed9e7bfe70d42aaba344a9d556a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: random_leaf_2
+    second: {fileID: 2100000, guid: a22d40119e731f945aa4955e3d0a69c6, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: birch_uv
+    second: {fileID: 2800000, guid: 8399db83139742f408f80411596a7132, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: random_leaf_2
+    second: {fileID: 2800000, guid: ad420e9992c52474497ec571f38a2713, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: random_leaf_full_1
+    second: {fileID: 2800000, guid: bbe11ebde91f2e946b113aacf64e0589, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -34,7 +64,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.15
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -81,7 +111,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 0.0015
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
