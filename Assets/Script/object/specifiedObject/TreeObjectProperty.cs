@@ -8,7 +8,7 @@ public class TreeObjectProperty : MaterialNodeObject
     string TreeType = "Oak";
     [SerializeField] GameObject TreeStump;
 
-    public void Harvest(int DamadgeAmount)
+    public void Harvest(float DamadgeAmount)
     {
         if(DropHitPoint(DamadgeAmount))
         {

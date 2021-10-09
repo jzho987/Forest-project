@@ -9,6 +9,7 @@ public class item : ScriptableObject
     [SerializeField] string itemName;
     [SerializeField] string itemDescription;
     [SerializeField] int maxStack;
+    [SerializeField] float ToolProficiency;
 
     //world item
     [SerializeField] public GameObject WorldItem;
@@ -25,6 +26,11 @@ public class item : ScriptableObject
     public int getMaxStack()
     {
         return maxStack;
+    }
+
+    public float getToolProficiency()
+    {
+        return ToolProficiency;
     }
 
     //temporary equals method to be used for testing purposes

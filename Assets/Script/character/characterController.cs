@@ -9,7 +9,8 @@ public class characterController : MonoBehaviour
     [SerializeField] AdvancedMovementScript playerMovementSystem;
     public float interactionDistance;
     public GameObject crossHairAnchor;
-    [SerializeField] int HarvestStrength;
+    [SerializeField] float characterHarvestStrength;
+    float HarvestStrength;
 
     //keybinding used for input tracking
     [SerializeField] string movementForward;
@@ -153,9 +154,26 @@ public class characterController : MonoBehaviour
         swingCoolDown = !(swingCoolDown <= 0) ? swingCoolDown - Time.deltaTime : 0;
     }
 
-    public int getHarvestStrength()
+    public float getHarvestStrength()
     {
         return HarvestStrength;
+    }
+
+    public void updateHarvestStrength()
+    {
+        //get item holding in hand
+        item holdingItem = playerInventorySystem.getHoldingItem();
+        //if item holding in hand has higher strength than character
+        if (holdingItem.getToolProficiency() < HarvestStrength)
+        {
+            //return items strength
+            HarvestStrength = holdingItem.getToolProficiency();
+        }
+        else
+        {
+            //other wise return hand strength
+            HarvestStrength = characterHarvestStrength;
+        }
     }
 
     public PlayerInventorySystem getPlayerInventorySystem()

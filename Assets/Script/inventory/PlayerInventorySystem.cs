@@ -28,6 +28,11 @@ public class PlayerInventorySystem : inventorySystem
         selectionIndex = 0;
     }
 
+    public item getHoldingItem()
+    {
+        return itemList[selectionIndex].getItem();
+    }
+
     public bool IntroduceToInventory(itemStack newItem)
     {
         int leftOver = PriorityAdd(newItem, 0);

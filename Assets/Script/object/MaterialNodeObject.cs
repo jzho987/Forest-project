@@ -5,7 +5,7 @@ using UnityEngine;
 public class MaterialNodeObject : ObjectProperty
 {
     string ObjectType = "MaterialNode";
-    [SerializeField] protected int HitPoint;
+    [SerializeField] protected float HitPoint;
     [SerializeField] item[] ItemDrop;
 
     public virtual void Harvest() { }
@@ -20,7 +20,7 @@ public class MaterialNodeObject : ObjectProperty
 
     }
 
-    public bool DropHitPoint(int amount)
+    public bool DropHitPoint(float amount)
     {
         HitPoint -= amount;
         if (HitPoint <= 0)
