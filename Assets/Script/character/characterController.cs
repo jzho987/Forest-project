@@ -10,7 +10,7 @@ public class characterController : MonoBehaviour
     public float interactionDistance;
     public GameObject crossHairAnchor;
     [SerializeField] float characterHarvestStrength;
-    float HarvestStrength;
+    float HarvestStrength = 1;
 
     //keybinding used for input tracking
     [SerializeField] string movementForward;

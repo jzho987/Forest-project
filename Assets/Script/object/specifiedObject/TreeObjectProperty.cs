@@ -10,6 +10,7 @@ public class TreeObjectProperty : MaterialNodeObject
 
     public void Harvest(float DamadgeAmount)
     {
+        Debug.Log(DamadgeAmount);
         if(DropHitPoint(DamadgeAmount))
         {
             //to be replaced with item's spawn function
