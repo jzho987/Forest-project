@@ -48,7 +48,7 @@ public class AdvancedMovementScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         //take input from player
         //calculate acceleration direction

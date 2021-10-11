@@ -1585,12 +1585,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1534002782}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1835404403 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8805515977548308047, guid: f9240f827ca3b174c85b6100b8d38694,
-    type: 3}
-  m_PrefabInstance: {fileID: 3795715980373330800}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1835404404 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8805515977548308403, guid: f9240f827ca3b174c85b6100b8d38694,
@@ -2642,9 +2636,6 @@ MonoBehaviour:
   - {fileID: 62925622}
   - {fileID: 484864033}
   selectionTransform: {fileID: 5765897032519673562}
-  uiPrefab: {fileID: 2556030915398617579, guid: 16901cb9ac5daa746b08a273f61ff0ef,
-    type: 3}
-  CanvasPointer: {fileID: 1835404403}
 --- !u!222 &4789334136258497795
 CanvasRenderer:
   m_ObjectHideFlags: 0
