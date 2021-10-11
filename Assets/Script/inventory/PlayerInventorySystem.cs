@@ -8,20 +8,15 @@ public class PlayerInventorySystem : inventorySystem
     [SerializeField] RectTransform[] HotbarPositionTransform;
     [SerializeField] RectTransform selectionTransform;
 
-    //prefabs
-    [SerializeField] GameObject uiPrefab;
-    [SerializeField] GameObject CanvasPointer;
-
     //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
     int hotBarEndIndex = 4;
     //selectedItem
     int selectionIndex;
     //the item being held by the mouse;
-    GameObject MouseInventory;
-    //uiElement
-    GameObject InventoryUI;
+    itemStack MouseInventory;
 
+    //attached ui script
     UIscript playerUI;
 
     private void Start()

@@ -104,11 +104,11 @@ public class characterController : MonoBehaviour
             playerInventorySystem.spawnUI();
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             playerInventorySystem.incrementSelection();
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             playerInventorySystem.decrementSelection();
         }
