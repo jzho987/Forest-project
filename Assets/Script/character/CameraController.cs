@@ -28,4 +28,24 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         camAnchor.Rotate(Vector3.up, mouseX);
     }
+
+    /**
+     * shake the camera upon landing
+     * follow the equation y = 2x^2 - 2x
+     */
+    public IEnumerator landingShake(float magnitude, float duration)
+    {
+        float elpasedTime = 0f;
+
+        while(elpasedTime < duration)
+        {
+            //calculate porabolic y from y = 2x^2 - 2x
+            float x = elpasedTime / duration;
+            float y = 2 * (Mathf.Pow(x,2)) - 2 * x;
+            transform.localPosition = Vector3.up * y;
+
+            elpasedTime += Time.deltaTime;
+            yield return null;
+        }
+    }
 }

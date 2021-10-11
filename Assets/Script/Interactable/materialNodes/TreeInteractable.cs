@@ -15,6 +15,7 @@ public class TreeInteractable : Interactable
     public override void f1Interaction(characterController actionController)
     {
         objProperty.Harvest(actionController.getHarvestStrength());
+        actionController.SwingAnimation();
     }
 
     public override void f2Interaction(characterController actionController)

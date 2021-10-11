@@ -7,6 +7,7 @@ public class characterController : MonoBehaviour
 {
     [SerializeField] PlayerInventorySystem playerInventorySystem;
     [SerializeField] AdvancedMovementScript playerMovementSystem;
+    [SerializeField] handAnimation playerHandAnimation;
     public float interactionDistance;
     public GameObject crossHairAnchor;
     [SerializeField] float characterHarvestStrength;
@@ -152,6 +153,11 @@ public class characterController : MonoBehaviour
     void SwingCoolDown()
     {
         swingCoolDown = !(swingCoolDown <= 0) ? swingCoolDown - Time.deltaTime : 0;
+    }
+
+    public void SwingAnimation()
+    {
+        playerHandAnimation.startHandAnimation(swingCoolDownTime);
     }
 
     public float getHarvestStrength()

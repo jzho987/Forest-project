@@ -34,6 +34,12 @@ public class AdvancedMovementScript : MonoBehaviour
     Vector3 desiredDirection = Vector3.zero;
     [SerializeField] float groundDistance = 1f;
     [SerializeField] float scanRadius = 0.5f;
+    [SerializeField] float terminalVelocity;
+
+    //temporary variable
+    //record grounded state for determining when state changed
+    [SerializeField] CameraController playerCameraController;
+    bool lastGroundedState;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +48,7 @@ public class AdvancedMovementScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //take input from player
         //calculate acceleration direction
@@ -50,6 +56,13 @@ public class AdvancedMovementScript : MonoBehaviour
         VerticalAction();
         if (isGrounded())
         {
+            if(lastGroundedState == false)
+            {
+                //this means the player landed
+                StartCoroutine(playerCameraController.landingShake(0.1f,0.4f));
+                lastGroundedState = true;
+            }
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
@@ -65,6 +78,7 @@ public class AdvancedMovementScript : MonoBehaviour
         }
         else
         {
+            lastGroundedState = false;
             MovePlayerFlat(JumpMovementSpeed, JumpAccelMultiplier, desiredDirection);
         }
     }
@@ -75,7 +89,7 @@ public class AdvancedMovementScript : MonoBehaviour
         {
             playerRigidBody.AddForce(Vector3.up * JumpStrength, ForceMode.Acceleration);
         }
-        else if(!isGrounded())
+        else if(!isGrounded() && playerRigidBody.velocity.y >= terminalVelocity)
         {
             playerRigidBody.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
