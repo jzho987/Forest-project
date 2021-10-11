@@ -25,6 +25,7 @@ public class characterController : MonoBehaviour
 
     //use this for player property
     [SerializeField] float swingCoolDownTime;
+    [SerializeField] LayerMask interactableMask;
     float swingCoolDown;
 
     worldState currState;
@@ -57,7 +58,7 @@ public class characterController : MonoBehaviour
 
     void movementInput()
     {
-        playerMovementSystem.InputDirection(Input.GetKey("w"), Input.GetKey("s"), Input.GetKey("a"), Input.GetKey("d"));
+        playerMovementSystem.InputDirection(Input.GetKey(movementForward), Input.GetKey(movementBackward), Input.GetKey(movementleft), Input.GetKey(movementright));
     }
 
     void InteractionInput(Interactable interactableObjectHit)
@@ -117,13 +118,10 @@ public class characterController : MonoBehaviour
     { 
         //raycast interaction
         RaycastHit hit;
-        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance))
+        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance, interactableMask))
         {
-            if (hit.collider.tag.Equals("interactable"))
-            {
-                Interactable interactable = hit.collider.GetComponent<Interactable>();
-                InteractionInput(interactable);
-            }
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            InteractionInput(interactable);
         }
         defaultInput();
         movementInput();
@@ -137,7 +135,7 @@ public class characterController : MonoBehaviour
         {
             switchState();
             Cursor.lockState = CursorLockMode.Locked;
-            playerInventorySystem.killUI();
+            playerInventorySystem.despawnUI();
         }
     }
 

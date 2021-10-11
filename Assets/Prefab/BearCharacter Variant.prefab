@@ -207,6 +207,8 @@ MonoBehaviour:
   gravityMultiplier: 2.7
   groundDistance: 0.25
   scanRadius: 0.29
+  terminalVelocity: 0
+  playerCameraController: {fileID: 0}
 --- !u!114 &4313904989797240179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,6 +1122,11 @@ PrefabInstance:
       propertyPath: playerInventorySystem
       value: 
       objectReference: {fileID: 4313904989797240179}
+    - target: {fileID: 8805515978086040390, guid: f9240f827ca3b174c85b6100b8d38694,
+        type: 3}
+      propertyPath: interactableMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 8805515978086040412, guid: f9240f827ca3b174c85b6100b8d38694,
         type: 3}
       propertyPath: m_Name

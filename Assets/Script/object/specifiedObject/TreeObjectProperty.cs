@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class TreeObjectProperty : MaterialNodeObject
 {
-    string ObjectName = "Tree";
     string TreeType = "Oak";
     [SerializeField] GameObject TreeStump;
 
@@ -20,8 +19,7 @@ public class TreeObjectProperty : MaterialNodeObject
 
     public override void Death()
     {
-        GameObject drop = Instantiate(Drop().WorldItem, MainPointerObject.transform.position + Vector3.up * 1.3f, Quaternion.Euler(90,0,0));
-        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(Drop(),8));
+        Drop().spawnItemInWorld(6, MainPointerObject.transform.position + Vector3.up * 1.3f);
         Instantiate(TreeStump, MainPointerObject.transform.position,MainPointerObject.transform.rotation);
         Destroy(MainPointerObject);
     }

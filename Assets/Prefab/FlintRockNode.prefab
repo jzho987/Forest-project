@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 4874924830997097364}
   - component: {fileID: 531272918761563126}
   - component: {fileID: 6592747367149709500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RockNodeInteractableHitbox
-  m_TagString: interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

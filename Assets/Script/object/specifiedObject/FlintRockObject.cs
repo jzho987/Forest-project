@@ -8,7 +8,6 @@ using UnityEngine;
  */
 public class FlintRockObject : MaterialNodeObject
 {
-    string ObjectName = "RockNode";
     string RockType = "flint";
     int decayStage = 0;
     [SerializeField] int maxDecayStage;
@@ -27,11 +26,7 @@ public class FlintRockObject : MaterialNodeObject
     {
         if (DropHitPoint(DamadgeAmount))
         {
-            //to be replaced with item's spawn function
-            if(Decay())
-            {
-                Death();
-            }
+            Decay();
         }
     }
 
@@ -40,33 +35,30 @@ public class FlintRockObject : MaterialNodeObject
      */
     public override void Death()
     {
-        GameObject drop = Instantiate(Drop().WorldItem, MainPointerObject.transform.position + Vector3.up * 0.4f, Quaternion.Euler(90, 0, 0));
-        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(Drop(), 3));
+        Drop().spawnItemInWorld(4 , MainPointerObject.transform.position + Vector3.up * 0.4f);
         Destroy(MainPointerObject);
     }
 
     /**
      * decay sets back the decay state of the object, and move it to a more decayed state until its death
      */
-    public bool Decay()
+    public void Decay()
     {
         if (++decayStage > maxDecayStage)
         {
-            return true;
+            Death();
         }
         else
         {
             displayDecayStage(decayStage);
             HitPoint = DecayHitPoints[decayStage];
             DecayDrop();
-            return false;
         }
     }
 
     public void DecayDrop()
     {
-        GameObject drop = Instantiate(Drop().WorldItem, MainPointerObject.transform.position + Vector3.up * 0.4f, Quaternion.Euler(90, 0, 0));
-        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(Drop(), 3));
+        Drop().spawnItemInWorld(3, MainPointerObject.transform.position + Vector3.up * 0.4f);
     }
 
     public void displayDecayStage(int stage)

@@ -11,26 +11,43 @@ public class item : ScriptableObject
     [SerializeField] int maxStack;
     [SerializeField] float ToolProficiency;
 
+    //if the prociency is -1 then that means the tool is unusable for that purpose
+    [SerializeField] float AxeProficiency;
+    [SerializeField] float PickaxeProficiency;
+    [SerializeField] float ShovelProficiency;
+
     //world item
-    [SerializeField] public GameObject WorldItem;
+    [SerializeField] GameObject WorldItem;
 
     //inventory item
     [SerializeField] Sprite itemSprite;
 
     //getters
-    public Sprite getItemSprite()
+    public Sprite getItemSprite() { return itemSprite; }
+
+    //public GameObject getWorldItem() { return WorldItem; }
+
+    public int getMaxStack() { return maxStack; }
+
+    public float getToolProficiency() { return ToolProficiency; }
+
+    public float getAxeProficiency() { return AxeProficiency; }
+
+    public float getPickaxeProficiency() { return PickaxeProficiency; }
+
+    public float getShovelProficiency() { return ShovelProficiency; }
+
+    //spawn in the item in world state, with an amount
+    public void spawnItemInWorld(int amount, Vector3 location)
     {
-        return itemSprite;
+        GameObject drop = Instantiate(WorldItem, location, Quaternion.identity);
+        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(this, amount));
     }
 
-    public int getMaxStack()
+    public void spawnItemInWorld(int amount, Vector3 location, Quaternion rotation)
     {
-        return maxStack;
-    }
-
-    public float getToolProficiency()
-    {
-        return ToolProficiency;
+        GameObject drop = Instantiate(WorldItem, location, rotation);
+        drop.GetComponent<ItemInteratable>().setNewStack(new itemStack(this, amount));
     }
 
     //temporary equals method to be used for testing purposes

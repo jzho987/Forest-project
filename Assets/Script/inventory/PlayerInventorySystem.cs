@@ -11,7 +11,6 @@ public class PlayerInventorySystem : inventorySystem
     //prefabs
     [SerializeField] GameObject uiPrefab;
     [SerializeField] GameObject CanvasPointer;
-    [SerializeField] GameObject HotBarUI;
 
     //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
@@ -23,9 +22,12 @@ public class PlayerInventorySystem : inventorySystem
     //uiElement
     GameObject InventoryUI;
 
+    UIscript playerUI;
+
     private void Start()
     {
         selectionIndex = 0;
+        playerUI = this.GetComponent<UIscript>();
     }
 
     public item getHoldingItem()
@@ -147,16 +149,6 @@ public class PlayerInventorySystem : inventorySystem
         updateHotBarSelection();
     }
 
-    public void spawnUI()
-    {
-        InventoryUI = Instantiate(uiPrefab, CanvasPointer.transform);
-    }
-
-    public void killUI()
-    {
-        Destroy(InventoryUI);
-    }
-
     public void updateHotBarSelection()
     {
         selectionTransform.position = HotbarPositionTransform[selectionIndex].position;
@@ -171,6 +163,16 @@ public class PlayerInventorySystem : inventorySystem
             hotbarArray[i] = getInventory(i);
         }
         //update ui
-        HotBarUI.GetComponent<UIscript>().UpdateUI(hotbarArray);
+        playerUI.UpdateHotbarUI(hotbarArray);
+    }
+
+    public void spawnUI()
+    {
+        playerUI.showPlayerInventory();
+    }
+
+    public void despawnUI()
+    {
+        playerUI.hidePlayerInventory();
     }
 }

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6029493484050146413}
   - component: {fileID: 8399891335283426301}
   - component: {fileID: 5515728116411446517}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ItemPrefab
-  m_TagString: interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPointer: {fileID: 4714539632843304820}
-  thisItem: {fileID: 11400000, guid: 7e077e1379e7ad046a709bf798590702, type: 2}
 --- !u!65 &5515728116411446517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -143,6 +142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WoodDrop
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 85c9260dd694d3846b663e9b5a8e2e78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85c9260dd694d3846b663e9b5a8e2e78, type: 3}
