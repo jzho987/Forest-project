@@ -24,6 +24,9 @@ public class AdvancedMovementScript : MonoBehaviour
     [SerializeField] float JumpStrength = 1;
     [SerializeField] float gravityMultiplier = 1;
 
+    //this is used to combat drag
+    [SerializeField] float MovementMultiplier;
+
     //universal variables
     /**state machine
      * 0 = walking
@@ -40,40 +43,61 @@ public class AdvancedMovementScript : MonoBehaviour
     //record grounded state for determining when state changed
     [SerializeField] CameraController playerCameraController;
     bool lastGroundedState;
+    public bool queuedJump;
+    float jumpQueueTime = 0.1f;
+    float lastJumpQueued;
 
     // Start is called before the first frame update
     void Start()
     {
+        lastJumpQueued = 0;
+    }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            queuedJump = true;
+            lastJumpQueued = jumpQueueTime;
+        }
+
+        lastJumpQueued -= Time.deltaTime;
+
+        if(lastJumpQueued <= 0)
+        {
+            queuedJump = false;
+
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //take input from player
         //calculate acceleration direction
         //taking into account airbourn state 
         VerticalAction();
+
         if (isGrounded())
         {
             if(lastGroundedState == false)
             {
                 //this means the player landed
-                StartCoroutine(playerCameraController.landingShake(0.1f,0.4f));
+                //StartCoroutine(playerCameraController.landingShake(0.1f,0.4f));
                 lastGroundedState = true;
             }
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                MovePlayer(SneakingSpeed, sneakAccelMultiplier, desiredDirection);
+                MovePlayer(SneakingSpeed * NormalToAngle(desiredDirection), sneakAccelMultiplier, desiredDirection);
             }
             else if (Input.GetKey(KeyCode.LeftControl))
             {
-                MovePlayer(RunningSpeed, runAccelMultiplier, desiredDirection);
+                MovePlayer(RunningSpeed * NormalToAngle(desiredDirection), runAccelMultiplier, desiredDirection);
             }
             else
             {
-                MovePlayer(WalkingSpeed, walkAccelMultiplier, desiredDirection);
+                MovePlayer(WalkingSpeed * NormalToAngle(desiredDirection), walkAccelMultiplier, desiredDirection);
             }
         }
         else
@@ -85,8 +109,9 @@ public class AdvancedMovementScript : MonoBehaviour
 
     void VerticalAction()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        if(queuedJump && isGrounded())
         {
+            Debug.Log("jumped");
             playerRigidBody.AddForce(Vector3.up * JumpStrength, ForceMode.Acceleration);
         }
         else if(!isGrounded() && playerRigidBody.velocity.y >= terminalVelocity)
@@ -154,13 +179,19 @@ public class AdvancedMovementScript : MonoBehaviour
         return Vector3.up;
     }
 
+    //return the angle as a float where 1 is flat and 0 is upright
+    float NormalToAngle(Vector3 normal)
+    {
+        return (1 - normal.normalized.y) / 1;
+    }
+
     /**
      * Move the player according to the desired direction
      */
     void MovePlayer(float speed, float accelMultiplier, Vector3 direction)
     {
         Vector3 MoveVelocity = direction*speed - playerRigidBody.velocity;
-        playerRigidBody.AddForce(MoveVelocity*accelMultiplier, ForceMode.Acceleration);
+        playerRigidBody.AddForce(MoveVelocity * accelMultiplier * MovementMultiplier, ForceMode.Acceleration);
     }
 
     /**
