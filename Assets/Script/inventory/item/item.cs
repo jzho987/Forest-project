@@ -18,6 +18,7 @@ public class item : ScriptableObject
 
     //world item
     [SerializeField] GameObject WorldItem;
+    [SerializeField] GameObject HoldingItem;
 
     //inventory item
     [SerializeField] Sprite itemSprite;
@@ -36,6 +37,8 @@ public class item : ScriptableObject
     public float getPickaxeProficiency() { return PickaxeProficiency; }
 
     public float getShovelProficiency() { return ShovelProficiency; }
+
+    public GameObject getHoldingItem() { return HoldingItem; }
 
     //spawn in the item in world state, with an amount
     public void spawnItemInWorld(int amount, Vector3 location)

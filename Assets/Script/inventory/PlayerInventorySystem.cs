@@ -8,6 +8,7 @@ public class PlayerInventorySystem : inventorySystem
     [SerializeField] RectTransform[] HotbarPositionTransform;
     [SerializeField] RectTransform selectionTransform;
     [SerializeField] Vector3 HotbarSelectionOffset;
+    [SerializeField] GameObject handPointer;
 
     //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
@@ -131,18 +132,22 @@ public class PlayerInventorySystem : inventorySystem
     {
         selectionIndex = ++selectionIndex % (hotBarEndIndex + 1);
         updateHotBarSelection();
+        newHandItem(itemList[selectionIndex].getItem().getHoldingItem());
     }
 
     public void decrementSelection()
     {
         selectionIndex = (--selectionIndex + hotBarEndIndex + 1) % (hotBarEndIndex + 1);
         updateHotBarSelection();
+
+        newHandItem(itemList[selectionIndex].getItem().getHoldingItem());
     }
 
     public void SwitchSelection(int newindex)
     {
         selectionIndex = newindex % (hotBarEndIndex + 1);
         updateHotBarSelection();
+        newHandItem(itemList[newindex].getItem().getHoldingItem());
     }
 
     public void updateHotBarSelection()
@@ -170,5 +175,15 @@ public class PlayerInventorySystem : inventorySystem
     public void despawnUI()
     {
         playerUI.hidePlayerInventory();
+    }
+
+    public void newHandItem(GameObject holdingItem)
+    {
+        foreach (Transform child in handPointer.transform)
+        {
+            Destroy(child);
+        }
+        if(holdingItem != null)
+            Instantiate(holdingItem, handPointer.transform);
     }
 }

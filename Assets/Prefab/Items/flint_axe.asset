@@ -16,6 +16,11 @@ MonoBehaviour:
   itemDescription: axe made of flint
   maxStack: 1
   ToolProficiency: 1.5
+  AxeProficiency: 0
+  PickaxeProficiency: 0
+  ShovelProficiency: 0
   WorldItem: {fileID: 4714539632843304820, guid: 594ef02600303e6448c7e187beb60370,
+    type: 3}
+  HoldingItem: {fileID: 9097861514172119583, guid: 70e0d4084329d7b40af3814cc2ce5f9d,
     type: 3}
   itemSprite: {fileID: 21300000, guid: 7a930e1144da6934f882680f84859b75, type: 3}
