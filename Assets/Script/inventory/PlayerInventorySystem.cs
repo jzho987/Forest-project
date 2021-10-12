@@ -7,6 +7,7 @@ public class PlayerInventorySystem : inventorySystem
     //selection
     [SerializeField] RectTransform[] HotbarPositionTransform;
     [SerializeField] RectTransform selectionTransform;
+    [SerializeField] Vector3 HotbarSelectionOffset;
 
     //universal objects
     //the hotbar in the inventory takes up index: 0 to this number
@@ -146,7 +147,7 @@ public class PlayerInventorySystem : inventorySystem
 
     public void updateHotBarSelection()
     {
-        selectionTransform.position = HotbarPositionTransform[selectionIndex].position;
+        selectionTransform.position = HotbarPositionTransform[selectionIndex].position + HotbarSelectionOffset;
     }
 
     public void updateHotBarUI()

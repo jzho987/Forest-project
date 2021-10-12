@@ -19,9 +19,19 @@ public class handAnimation : MonoBehaviour
 
     }
 
-    public void startHandAnimation(float time)
+    public void startWalkingAnimation()
     {
-        animator.Play("swing");
-        animator.SetFloat("swingSpeed", 0.833f / time);
+        animator.SetBool("Moving",true);
+    }
+
+    public void endWalkingAnimation()
+    {
+        animator.SetBool("Moving", false);
+    }
+
+    public void swingAxe(float speed)
+    {
+        animator.SetFloat("swingSpeed", speed);
+        animator.Play("Swing");
     }
 }

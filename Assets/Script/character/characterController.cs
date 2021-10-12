@@ -54,6 +54,15 @@ public class characterController : MonoBehaviour
         {
             inspectInput();
         }
+
+        if (Input.GetKey(movementForward) || Input.GetKey(movementBackward) || Input.GetKey(movementleft) || Input.GetKey(movementright))
+        {
+            playerHandAnimation.startWalkingAnimation();
+        }
+        else 
+        {
+            playerHandAnimation.endWalkingAnimation();
+        }
     }
 
     void movementInput()
@@ -155,7 +164,7 @@ public class characterController : MonoBehaviour
 
     public void SwingAnimation()
     {
-        playerHandAnimation.startHandAnimation(swingCoolDownTime);
+        playerHandAnimation.swingAxe(swingCoolDownTime);
     }
 
     public float getHarvestStrength()
