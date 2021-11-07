@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MaterialNodeObject : ObjectProperty
 {
-    string ObjectType = "MaterialNode";
     [SerializeField] protected float HitPoint;
     [SerializeField] item[] ItemDrop;
 
@@ -15,16 +15,13 @@ public class MaterialNodeObject : ObjectProperty
         return ItemDrop[0];
     }
 
-    public void WeightedDrop()
+    /**
+     * this handles the material node dropping items
+     */
+    public void DropItem()
     {
-
-    }
-
-    public bool DropHitPoint(float amount)
-    {
-        HitPoint -= amount;
-        if (HitPoint <= 0)
-            return true;
-        else return false;
+        itemStack spawnStack = new itemStack(Drop(), 1);
+        GameObject itemSpawned = PhotonNetwork.Instantiate(Drop().getItemName(), MainPointerObject.transform.position + Vector3.up * 0.4f, Quaternion.identity);
+        itemSpawned.GetComponent<ItemInteratable>().setNewStack(spawnStack);
     }
 }

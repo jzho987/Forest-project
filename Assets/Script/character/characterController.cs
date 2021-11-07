@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent(typeof(AdvancedMovementScript))]
 public class characterController : MonoBehaviour
 {
+    [SerializeField] initializeCharacter initialize;
+
+    characterEvent events;
+    CharacterStatistics characterStatistics;
+
     [SerializeField] PlayerInventorySystem playerInventorySystem;
-    [SerializeField] AdvancedMovementScript playerMovementSystem;
     [SerializeField] handAnimation playerHandAnimation;
-    public float interactionDistance;
     public GameObject crossHairAnchor;
-    [SerializeField] float characterHarvestStrength;
-    float HarvestStrength = 1;
+
+    [SerializeField] GameObject cameraGO;
+    [SerializeField] GameObject UIGO;
+    public PhotonView PV;
 
     //keybinding used for input tracking
     [SerializeField] string movementForward;
@@ -38,36 +44,60 @@ public class characterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        initialize.onInitializeCharacter += initializeCharacterCallback;
         swingCoolDown = 0f;
         currState = worldState.active;
+
+        if(!PV.IsMine)
+        {
+            Destroy(cameraGO);
+            Destroy(UIGO);
+        }
+
+    }
+
+    private void initializeCharacterCallback(characterEvent events, CharacterStatistics stats)
+    {
+        Debug.Log("initialized hehe");
+        this.events = events;
+        this.characterStatistics = stats;
     }
 
     // Update is called once per frame
     void Update()
     {
-        SwingCoolDown();
-        if(currState == worldState.active)
+        if(PV.IsMine)
         {
-            ActiveInput();
-        }
-        else if(currState == worldState.inspection)
-        {
-            inspectInput();
-        }
+            SwingCoolDown();
+            if(currState == worldState.active)
+            {
+                ActiveInput();
+            }
+            else if(currState == worldState.inspection)
+            {
+                inspectInput();
+            }
 
-        if (Input.GetKey(movementForward) || Input.GetKey(movementBackward) || Input.GetKey(movementleft) || Input.GetKey(movementright))
-        {
-            playerHandAnimation.startWalkingAnimation();
+            if (Input.GetKey(movementForward) || Input.GetKey(movementBackward) || Input.GetKey(movementleft) || Input.GetKey(movementright))
+            {
+                playerHandAnimation.startWalkingAnimation();
+            }
+            else 
+            {
+                playerHandAnimation.endWalkingAnimation();
+            }
+
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                events.callOnJumpDetected();
+            }
         }
-        else 
-        {
-            playerHandAnimation.endWalkingAnimation();
-        }
+        
     }
 
     void movementInput()
     {
-        playerMovementSystem.InputDirection(Input.GetKey(movementForward), Input.GetKey(movementBackward), Input.GetKey(movementleft), Input.GetKey(movementright));
+        events.callMovementInput(Input.GetKey(movementForward), Input.GetKey(movementBackward), Input.GetKey(movementleft), Input.GetKey(movementright));
     }
 
     void InteractionInput(Interactable interactableObjectHit)
@@ -110,16 +140,25 @@ public class characterController : MonoBehaviour
             //open inventory
             switchState();
             Cursor.lockState = CursorLockMode.None;
-            playerInventorySystem.spawnUI();
+            events.callOnInventoryOpen();
+        }
+        else if (Input.GetKeyDown("c"))
+        {
+            //open crafting menu
+            switchState();
+            Cursor.lockState = CursorLockMode.None;
+            events.callOnCraftingTabOpen();
         }
 
+        //if there are mouse scroll wheel input, call event
+        //done like this so no unnecessary event calls
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            playerInventorySystem.incrementSelection();
+            events.callOnMouseScrollUp();
         }
         else if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            playerInventorySystem.decrementSelection();
+            events.callOnMouseScrollDown();
         }
     }
 
@@ -127,7 +166,7 @@ public class characterController : MonoBehaviour
     { 
         //raycast interaction
         RaycastHit hit;
-        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, interactionDistance, interactableMask))
+        if (Physics.Raycast(crossHairAnchor.transform.position, crossHairAnchor.transform.forward, out hit, characterStatistics.interactionDistance, interactableMask))
         {
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             InteractionInput(interactable);
@@ -138,13 +177,13 @@ public class characterController : MonoBehaviour
 
     void inspectInput()
     {
-        /* exit inventory
+        /* exit all UI elements
          */
         if (Input.GetKeyDown("e"))
         {
             switchState();
             Cursor.lockState = CursorLockMode.Locked;
-            playerInventorySystem.despawnUI();
+            events.callOnExitUIMenus();
         }
     }
 
@@ -169,26 +208,9 @@ public class characterController : MonoBehaviour
 
     public float getHarvestStrength()
     {
-        return HarvestStrength;
+            return characterStatistics.AxeProciciency;
     }
-
-    public void updateHarvestStrength()
-    {
-        //get item holding in hand
-        item holdingItem = playerInventorySystem.getHoldingItem();
-        //if item holding in hand has higher strength than character
-        if (holdingItem.getToolProficiency() < HarvestStrength)
-        {
-            //return items strength
-            HarvestStrength = holdingItem.getToolProficiency();
-        }
-        else
-        {
-            //other wise return hand strength
-            HarvestStrength = characterHarvestStrength;
-        }
-    }
-
+    
     public PlayerInventorySystem getPlayerInventorySystem()
     {
         return this.playerInventorySystem;

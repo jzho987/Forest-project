@@ -94,7 +94,7 @@ MonoBehaviour:
   ObjectName: flint node
   HitPoint: 0
   ItemDrop:
-  - {fileID: 11400000, guid: 2f7a72daf7f35864aa29249e7fd5b7ec, type: 2}
+  - {fileID: 11400000, guid: 862171ff76fd8184abaf3c15e0339ea2, type: 2}
   maxDecayStage: 2
   DecayStates:
   - {fileID: 919132149155446097, guid: d3cb65ef48bfbbd4a941fe21d0dc9057, type: 3}

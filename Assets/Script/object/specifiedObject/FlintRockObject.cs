@@ -24,10 +24,12 @@ public class FlintRockObject : MaterialNodeObject
 
     public void Harvest(float DamadgeAmount)
     {
+        /*
         if (DropHitPoint(DamadgeAmount))
         {
             Decay();
         }
+        */
     }
 
     /**
@@ -35,7 +37,7 @@ public class FlintRockObject : MaterialNodeObject
      */
     public override void Death()
     {
-        Drop().spawnItemInWorld(4 , MainPointerObject.transform.position + Vector3.up * 0.4f);
+        DropItem();
         Destroy(MainPointerObject);
     }
 
@@ -58,7 +60,7 @@ public class FlintRockObject : MaterialNodeObject
 
     public void DecayDrop()
     {
-        Drop().spawnItemInWorld(3, MainPointerObject.transform.position + Vector3.up * 0.4f);
+        DropItem();
     }
 
     public void displayDecayStage(int stage)

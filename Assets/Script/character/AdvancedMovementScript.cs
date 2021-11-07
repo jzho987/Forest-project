@@ -11,18 +11,9 @@ public class AdvancedMovementScript : MonoBehaviour
     [SerializeField] LayerMask groundMask;
 
     //character properties
-    [SerializeField] float WalkingSpeed = 3;
-    [SerializeField] float RunningSpeed = 6;
-    [SerializeField] float SneakingSpeed = 1.5f;
-
-    [SerializeField] float walkAccelMultiplier = 0.5f;
-    [SerializeField] float runAccelMultiplier = 1;
-    [SerializeField] float sneakAccelMultiplier = 0.5f;
-
-    [SerializeField] float JumpMovementSpeed = 3;
-    [SerializeField] float JumpAccelMultiplier = 0.2f;
-    [SerializeField] float JumpStrength = 1;
-    [SerializeField] float gravityMultiplier = 1;
+    [SerializeField] initializeCharacter initialize;
+    characterEvent events;
+    CharacterStatistics statsContainer;
 
     //this is used to combat drag
     [SerializeField] float MovementMultiplier;
@@ -50,23 +41,40 @@ public class AdvancedMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //initialize
         lastJumpQueued = 0;
+
+        //subscribe
+        initialize.onInitializeCharacter += initializeCharacterCallback;
     }
 
-    private void Update()
+    private void initializeCharacterCallback(characterEvent events, CharacterStatistics stats)
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        Debug.Log("initialized hehe");
+        this.events = events;
+        this.statsContainer = stats;
+
+        events.MovementInput += InputDirection;
+        events.onJumpDetected += jump;
+    }
+
+    /**
+     * this is the call back to character controller's on jump detected event
+     * it will give the character a upward force to simulate jump
+     * 
+     * this fits in the rigidbody construct of the game
+     * 
+     * this should only be triggered once before the is grounded state turns false
+     * could be bug prone in that sense
+     * 
+     * should implement a input queue system inside of this class
+     */
+    void jump()
+    {
+        if (isGrounded())
         {
-            queuedJump = true;
-            lastJumpQueued = jumpQueueTime;
-        }
-
-        lastJumpQueued -= Time.deltaTime;
-
-        if(lastJumpQueued <= 0)
-        {
-            queuedJump = false;
-
+            Debug.Log("jumped");
+            playerRigidBody.AddForce(Vector3.up * statsContainer.JumpStrength, ForceMode.Acceleration);
         }
     }
 
@@ -76,7 +84,7 @@ public class AdvancedMovementScript : MonoBehaviour
         //take input from player
         //calculate acceleration direction
         //taking into account airbourn state 
-        VerticalAction();
+        ApplyGravityMannual();
 
         if (isGrounded())
         {
@@ -89,34 +97,34 @@ public class AdvancedMovementScript : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                MovePlayer(SneakingSpeed * NormalToAngle(desiredDirection), sneakAccelMultiplier, desiredDirection);
+                MovePlayer(statsContainer.SneakingSpeed * NormalToAngle(desiredDirection), statsContainer.sneakAccelMultiplier, desiredDirection);
             }
             else if (Input.GetKey(KeyCode.LeftControl))
             {
-                MovePlayer(RunningSpeed * NormalToAngle(desiredDirection), runAccelMultiplier, desiredDirection);
+                MovePlayer(statsContainer.RunningSpeed * NormalToAngle(desiredDirection), statsContainer.runAccelMultiplier, desiredDirection);
             }
             else
             {
-                MovePlayer(WalkingSpeed * NormalToAngle(desiredDirection), walkAccelMultiplier, desiredDirection);
+                MovePlayer(statsContainer.WalkingSpeed * NormalToAngle(desiredDirection), statsContainer.walkAccelMultiplier, desiredDirection);
             }
         }
         else
         {
             lastGroundedState = false;
-            MovePlayerFlat(JumpMovementSpeed, JumpAccelMultiplier, desiredDirection);
+            MovePlayerFlat(statsContainer.JumpMovementSpeed, statsContainer.JumpAccelMultiplier, desiredDirection);
         }
     }
 
-    void VerticalAction()
+    /**
+     * mannually apply gravity to the character if the character is on the ground
+     * 
+     * invoked every frame hence check grounded state inside of this method
+     */
+    void ApplyGravityMannual()
     {
-        if(queuedJump && isGrounded())
+        if(!isGrounded() && playerRigidBody.velocity.y >= terminalVelocity)
         {
-            Debug.Log("jumped");
-            playerRigidBody.AddForce(Vector3.up * JumpStrength, ForceMode.Acceleration);
-        }
-        else if(!isGrounded() && playerRigidBody.velocity.y >= terminalVelocity)
-        {
-            playerRigidBody.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
+            playerRigidBody.AddForce(Vector3.down * statsContainer.gravityMultiplier, ForceMode.Acceleration);
         }
 
     }

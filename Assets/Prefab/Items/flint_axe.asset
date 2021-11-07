@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a37c83748ae67a24f9f317dc6e06a966, type: 3}
   m_Name: flint_axe
   m_EditorClassIdentifier: 
-  itemName: flint axe
+  itemName: axe
   itemDescription: axe made of flint
   maxStack: 1
-  ToolProficiency: 1.5
-  AxeProficiency: 0
+  AxeProficiency: 2
   PickaxeProficiency: 0
   ShovelProficiency: 0
   WorldItem: {fileID: 4714539632843304820, guid: 594ef02600303e6448c7e187beb60370,

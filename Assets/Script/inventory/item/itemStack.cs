@@ -39,6 +39,8 @@ public class itemStack
         return true;
     }
 
+    //if the item can be decremented, it will be, and return true
+    //other wise, return false, and stay at 0
     public bool decrementCount()
     {
         if (--count < 0)

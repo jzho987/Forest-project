@@ -81,7 +81,7 @@ MonoBehaviour:
   ObjectName: oak tree
   HitPoint: 10
   ItemDrop:
-  - {fileID: 11400000, guid: e9d3d40da91720946a80f342baa9a356, type: 2}
+  - {fileID: 11400000, guid: 2f7a72daf7f35864aa29249e7fd5b7ec, type: 2}
   TreeStump: {fileID: 7782767857550481498, guid: 3ca52cace2799b247802d6ca7f7d5841,
     type: 3}
 --- !u!114 &7152080719404720816

@@ -11,9 +11,13 @@ public class TreeInteractable : Interactable
         objProperty = objectPointer.GetComponent<TreeObjectProperty>();
     }
 
-    //harvest tree
+    /**
+     * The left click action is to Harvest the tree
+     * 
+     */
     public override void f1Interaction(characterController actionController)
     {
+        Debug.Log("interacting");
         objProperty.Harvest(actionController.getHarvestStrength());
         actionController.SwingAnimation();
     }
