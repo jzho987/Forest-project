@@ -75,7 +75,7 @@ MonoBehaviour:
   ObjectName: OakTree
   HitPoint: 5
   ItemDrop:
-  - {fileID: 4714539632843304820, guid: da18d9736b339e74da42af6b27b209ee, type: 3}
+  - {fileID: 11400000, guid: e9d3d40da91720946a80f342baa9a356, type: 2}
   TreeStump: {fileID: 2868836166049543581, guid: 0166943c3c1fa0143bcab1598f90c036,
     type: 3}
 --- !u!1 &5473065742254395951

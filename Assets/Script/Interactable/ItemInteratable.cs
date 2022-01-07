@@ -1,19 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class ItemInteratable : Interactable { 
-    public override void PickUpInteraction() {
-        Debug.Log("Player tried to pick up " + Property.getName());
+/**
+ * This script should be used for every item that is in world space
+ * 
+ * This script contains all interactions with the item
+ * 
+ * right clicking an item should pick up the item
+ */
+public class ItemInteratable : Interactable {
+
+    itemStack thisItem;
+
+    public void setNewStack(itemStack newItemStack)
+    {
+        thisItem = newItemStack;
     }
 
-    static class Property
-    {
-        static string ItemName = "oak log";
-
-        public static string getName()
-        {
-            return ItemName;
-        }
+    public override void f2Interaction(characterController actionController) {
+        actionController.getPlayerInventorySystem().IntroduceToInventory(thisItem);
+        PhotonNetwork.Destroy(objectPointer);
     }
 }

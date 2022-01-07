@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37c83748ae67a24f9f317dc6e06a966, type: 3}
+  m_Name: flint_axe
+  m_EditorClassIdentifier: 
+  itemName: axe
+  itemDescription: axe made of flint
+  maxStack: 1
+  AxeProficiency: 2
+  PickaxeProficiency: 0
+  ShovelProficiency: 0
+  WorldItem: {fileID: 4714539632843304820, guid: 594ef02600303e6448c7e187beb60370,
+    type: 3}
+  HoldingItem: {fileID: 9097861514172119583, guid: 70e0d4084329d7b40af3814cc2ce5f9d,
+    type: 3}
+  itemSprite: {fileID: 21300000, guid: 7a930e1144da6934f882680f84859b75, type: 3}

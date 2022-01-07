@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ObjectProperty : MonoBehaviour
+public class ObjectProperty : MonoBehaviour
 {
     public GameObject MainPointerObject;
     string ObjectType;
